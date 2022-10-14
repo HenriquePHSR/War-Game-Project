@@ -6,6 +6,7 @@ make build
 
 2. Instalar VNC:
 https://www.realvnc.com/pt/connect/download/viewer/macos/
+https://www.tightvnc.com/
 
 3. executar a imagem com:
 docker compose up
