@@ -685,3 +685,58 @@
 2022-10-30 00:17:40,960 INFO stopped: sshd (exit status 0)
 2022-10-30 00:17:41,588 INFO stopped: startxfce4 (terminated by SIGTERM)
 2022-10-30 00:17:41,590 INFO stopped: x11vnc (terminated by SIGTERM)
+2022-10-30 00:56:30,554 INFO Set uid to user 0 succeeded
+2022-10-30 00:56:30,556 INFO supervisord started with pid 1
+2022-10-30 00:56:31,559 INFO spawned: 'xvfb' with pid 9
+2022-10-30 00:56:31,561 INFO spawned: 'x11vnc' with pid 10
+2022-10-30 00:56:31,565 INFO spawned: 'startxfce4' with pid 11
+2022-10-30 00:56:31,568 INFO spawned: 'sshd' with pid 12
+2022-10-30 00:56:31,685 INFO reaped unknown pid 45
+2022-10-30 00:56:31,705 INFO reaped unknown pid 58
+2022-10-30 00:56:32,580 INFO success: xvfb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:56:32,580 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:56:32,580 INFO success: startxfce4 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:56:32,580 INFO success: sshd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:57:21,647 INFO reaped unknown pid 79
+2022-10-30 00:57:31,353 INFO reaped unknown pid 88
+2022-10-30 00:58:23,218 INFO reaped unknown pid 93
+2022-10-30 00:58:23,222 INFO reaped unknown pid 89
+2022-10-30 00:58:24,223 INFO exited: x11vnc (exit status 0; expected)
+2022-10-30 00:58:25,227 INFO spawned: 'x11vnc' with pid 101
+2022-10-30 00:58:26,244 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:59:04,927 WARN received SIGINT indicating exit request
+2022-10-30 00:59:04,927 INFO waiting for startxfce4, xvfb, sshd, x11vnc to die
+2022-10-30 00:59:04,928 INFO stopped: sshd (exit status 0)
+2022-10-30 00:59:04,929 INFO stopped: startxfce4 (terminated by SIGTERM)
+2022-10-30 00:59:04,930 INFO stopped: x11vnc (exit status 2)
+2022-10-30 00:59:04,935 INFO reaped unknown pid 33
+2022-10-30 00:59:04,935 INFO reaped unknown pid 35
+2022-10-30 00:59:04,935 INFO reaped unknown pid 43
+2022-10-30 00:59:04,935 INFO reaped unknown pid 19
+2022-10-30 00:59:04,943 INFO reaped unknown pid 47
+2022-10-30 00:59:04,943 INFO reaped unknown pid 73
+2022-10-30 00:59:04,944 INFO reaped unknown pid 75
+2022-10-30 00:59:04,949 INFO stopped: xvfb (exit status 0)
+2022-10-30 00:59:22,203 INFO Set uid to user 0 succeeded
+2022-10-30 00:59:22,205 INFO supervisord started with pid 1
+2022-10-30 00:59:23,208 INFO spawned: 'xvfb' with pid 9
+2022-10-30 00:59:23,210 INFO spawned: 'x11vnc' with pid 10
+2022-10-30 00:59:23,212 INFO spawned: 'startxfce4' with pid 11
+2022-10-30 00:59:23,214 INFO spawned: 'sshd' with pid 12
+2022-10-30 00:59:23,324 INFO reaped unknown pid 45
+2022-10-30 00:59:23,353 INFO reaped unknown pid 58
+2022-10-30 00:59:24,220 INFO success: xvfb entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:59:24,220 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:59:24,220 INFO success: startxfce4 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:59:24,220 INFO success: sshd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:59:26,515 WARN received SIGINT indicating exit request
+2022-10-30 00:59:26,515 INFO waiting for startxfce4, xvfb, sshd, x11vnc to die
+2022-10-30 00:59:26,516 INFO stopped: sshd (exit status 0)
+2022-10-30 00:59:26,517 INFO stopped: startxfce4 (terminated by SIGTERM)
+2022-10-30 00:59:26,519 INFO stopped: x11vnc (exit status 2)
+2022-10-30 00:59:26,524 INFO reaped unknown pid 33
+2022-10-30 00:59:26,524 INFO reaped unknown pid 19
+2022-10-30 00:59:26,525 INFO reaped unknown pid 43
+2022-10-30 00:59:26,526 INFO reaped unknown pid 49
+2022-10-30 00:59:26,535 INFO reaped unknown pid 35
+2022-10-30 00:59:26,538 INFO stopped: xvfb (exit status 0)

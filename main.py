@@ -1,5 +1,6 @@
 import os
 
+# alteração
 os.environ["DISPLAY"]
 
 """
