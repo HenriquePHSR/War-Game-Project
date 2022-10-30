@@ -12,11 +12,14 @@ As funções serão explicadas conforme forem usadas.
 """
 from PPlay.window import *
 from PPlay.sprite import *
- 
+from PPlay.gameimage import *
 #pygame.display.list_modes()
 
-janela = Window(400,400)
- 
+janela = Window(1000,1000)
+
+janela.set_title("Jogo")
+
+fundo = GameImage("./war_ref/png/mapa.png") 
 # Atenção ao segundo parâmetro para criar o Sprite!!!
 #animacao = Sprite("walking.png", 8)  # 8 frames
  
@@ -25,7 +28,7 @@ janela = Window(400,400)
  
 # GameLoop
 while(True):
-    janela.set_background_color((255,255,255))  # branco
+    #janela.set_background_color((255,255,255))  # branco
      
 #    animacao.move_key_x(0.1)  # mesma coisa do exemplo 2.2
 #    animacao.move_key_y(0.1)
@@ -34,5 +37,5 @@ while(True):
      
     # ATENÇÃO!!! Tem que ser chamada para que mude o frame!!
 #    animacao.update()
-     
+    fundo.draw()
     janela.update()
