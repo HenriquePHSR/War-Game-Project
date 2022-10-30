@@ -374,6 +374,13 @@ if True:
     print(".")
     # Assets with collision
 new_run = 1
+
+
+
+
+
+
+
 #Game loop
 while (True):
     test_dmg = 0
