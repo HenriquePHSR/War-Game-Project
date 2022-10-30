@@ -2,6 +2,8 @@ FROM rsolano/debian-vnc-python
 
 COPY . /app
 
+VOLUMES . /app
+
 WORKDIR /app
 
 RUN apt-get update \
