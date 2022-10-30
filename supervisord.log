@@ -412,3 +412,276 @@
 2022-10-14 21:41:24,803 INFO stopped: sshd (exit status 0)
 2022-10-14 21:41:24,815 INFO stopped: startxfce4 (terminated by SIGTERM)
 2022-10-14 21:41:24,815 INFO stopped: x11vnc (terminated by SIGTERM)
+2022-10-30 00:14:55,162 INFO Set uid to user 0 succeeded
+2022-10-30 00:14:55,164 INFO supervisord started with pid 1
+2022-10-30 00:14:56,167 INFO spawned: 'xvfb' with pid 9
+2022-10-30 00:14:56,169 INFO spawned: 'x11vnc' with pid 10
+2022-10-30 00:14:56,171 INFO spawned: 'startxfce4' with pid 11
+2022-10-30 00:14:56,172 INFO spawned: 'sshd' with pid 12
+2022-10-30 00:14:56,176 INFO exited: xvfb (exit status 1; not expected)
+2022-10-30 00:14:56,240 INFO reaped unknown pid 35
+2022-10-30 00:14:56,283 INFO reaped unknown pid 49
+2022-10-30 00:14:56,324 INFO reaped unknown pid 33
+2022-10-30 00:14:57,181 INFO spawned: 'xvfb' with pid 55
+2022-10-30 00:14:57,181 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:14:57,182 INFO success: startxfce4 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:14:57,182 INFO success: sshd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:14:57,182 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:14:57,184 INFO spawned: 'x11vnc' with pid 56
+2022-10-30 00:14:57,190 INFO exited: xvfb (exit status 1; not expected)
+2022-10-30 00:14:58,194 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:14:58,197 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:14:59,199 INFO spawned: 'xvfb' with pid 57
+2022-10-30 00:14:59,202 INFO spawned: 'x11vnc' with pid 58
+2022-10-30 00:14:59,214 INFO exited: xvfb (exit status 1; not expected)
+2022-10-30 00:15:00,218 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:00,221 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:01,224 INFO spawned: 'x11vnc' with pid 59
+2022-10-30 00:15:02,237 INFO spawned: 'xvfb' with pid 65
+2022-10-30 00:15:02,238 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:02,239 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:02,242 INFO spawned: 'x11vnc' with pid 66
+2022-10-30 00:15:02,254 INFO exited: xvfb (exit status 1; not expected)
+2022-10-30 00:15:02,258 INFO gave up: xvfb entered FATAL state, too many start retries too quickly
+2022-10-30 00:15:03,260 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:03,263 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:04,266 INFO spawned: 'x11vnc' with pid 67
+2022-10-30 00:15:05,279 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:05,282 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:06,285 INFO spawned: 'x11vnc' with pid 68
+2022-10-30 00:15:07,301 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:07,303 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:08,305 INFO spawned: 'x11vnc' with pid 69
+2022-10-30 00:15:09,315 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:09,317 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:10,321 INFO spawned: 'x11vnc' with pid 70
+2022-10-30 00:15:11,333 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:11,335 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:12,338 INFO spawned: 'x11vnc' with pid 71
+2022-10-30 00:15:13,359 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:13,362 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:14,365 INFO spawned: 'x11vnc' with pid 72
+2022-10-30 00:15:15,380 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:15,382 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:16,385 INFO spawned: 'x11vnc' with pid 73
+2022-10-30 00:15:17,404 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:17,406 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:18,409 INFO spawned: 'x11vnc' with pid 74
+2022-10-30 00:15:19,421 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:19,424 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:20,427 INFO spawned: 'x11vnc' with pid 75
+2022-10-30 00:15:21,439 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:21,442 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:22,446 INFO spawned: 'x11vnc' with pid 76
+2022-10-30 00:15:23,458 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:23,460 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:24,464 INFO spawned: 'x11vnc' with pid 77
+2022-10-30 00:15:25,477 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:25,480 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:26,483 INFO spawned: 'x11vnc' with pid 78
+2022-10-30 00:15:27,495 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:27,498 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:28,501 INFO spawned: 'x11vnc' with pid 79
+2022-10-30 00:15:29,515 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:29,517 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:30,521 INFO spawned: 'x11vnc' with pid 80
+2022-10-30 00:15:31,535 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:31,538 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:32,541 INFO spawned: 'x11vnc' with pid 81
+2022-10-30 00:15:33,559 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:33,564 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:33,567 INFO spawned: 'x11vnc' with pid 82
+2022-10-30 00:15:34,579 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:34,582 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:35,585 INFO spawned: 'x11vnc' with pid 83
+2022-10-30 00:15:36,598 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:36,601 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:37,603 INFO spawned: 'x11vnc' with pid 84
+2022-10-30 00:15:38,618 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:38,621 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:39,624 INFO spawned: 'x11vnc' with pid 85
+2022-10-30 00:15:40,639 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:40,641 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:41,643 INFO spawned: 'x11vnc' with pid 86
+2022-10-30 00:15:42,651 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:42,653 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:43,655 INFO spawned: 'x11vnc' with pid 87
+2022-10-30 00:15:44,673 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:44,675 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:45,678 INFO spawned: 'x11vnc' with pid 88
+2022-10-30 00:15:46,695 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:46,698 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:47,701 INFO spawned: 'x11vnc' with pid 89
+2022-10-30 00:15:48,721 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:48,723 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:49,727 INFO spawned: 'x11vnc' with pid 90
+2022-10-30 00:15:50,747 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:50,750 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:51,753 INFO spawned: 'x11vnc' with pid 91
+2022-10-30 00:15:52,765 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:52,768 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:53,771 INFO spawned: 'x11vnc' with pid 92
+2022-10-30 00:15:54,783 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:54,785 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:55,789 INFO spawned: 'x11vnc' with pid 93
+2022-10-30 00:15:56,801 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:56,803 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:57,806 INFO spawned: 'x11vnc' with pid 94
+2022-10-30 00:15:58,823 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:15:58,826 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:15:59,829 INFO spawned: 'x11vnc' with pid 95
+2022-10-30 00:16:00,843 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:00,846 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:01,848 INFO spawned: 'x11vnc' with pid 96
+2022-10-30 00:16:02,858 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:02,860 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:03,863 INFO spawned: 'x11vnc' with pid 97
+2022-10-30 00:16:04,881 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:04,884 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:05,887 INFO spawned: 'x11vnc' with pid 98
+2022-10-30 00:16:06,902 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:06,904 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:07,908 INFO spawned: 'x11vnc' with pid 99
+2022-10-30 00:16:08,919 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:08,921 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:09,925 INFO spawned: 'x11vnc' with pid 100
+2022-10-30 00:16:10,942 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:10,945 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:11,948 INFO spawned: 'x11vnc' with pid 101
+2022-10-30 00:16:12,959 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:12,962 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:13,965 INFO spawned: 'x11vnc' with pid 102
+2022-10-30 00:16:14,976 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:14,979 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:15,982 INFO spawned: 'x11vnc' with pid 103
+2022-10-30 00:16:16,993 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:16,995 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:17,999 INFO spawned: 'x11vnc' with pid 104
+2022-10-30 00:16:19,016 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:19,018 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:20,022 INFO spawned: 'x11vnc' with pid 105
+2022-10-30 00:16:21,038 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:21,041 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:22,044 INFO spawned: 'x11vnc' with pid 106
+2022-10-30 00:16:23,061 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:23,064 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:24,067 INFO spawned: 'x11vnc' with pid 107
+2022-10-30 00:16:25,077 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:25,080 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:26,083 INFO spawned: 'x11vnc' with pid 108
+2022-10-30 00:16:27,095 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:27,099 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:28,102 INFO spawned: 'x11vnc' with pid 109
+2022-10-30 00:16:29,121 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:29,124 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:30,127 INFO spawned: 'x11vnc' with pid 110
+2022-10-30 00:16:31,141 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:31,143 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:32,146 INFO spawned: 'x11vnc' with pid 111
+2022-10-30 00:16:33,160 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:33,163 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:34,166 INFO spawned: 'x11vnc' with pid 112
+2022-10-30 00:16:35,184 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:35,187 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:36,190 INFO spawned: 'x11vnc' with pid 113
+2022-10-30 00:16:37,208 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:37,211 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:38,214 INFO spawned: 'x11vnc' with pid 114
+2022-10-30 00:16:39,227 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:39,229 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:40,232 INFO spawned: 'x11vnc' with pid 115
+2022-10-30 00:16:41,248 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:41,250 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:42,254 INFO spawned: 'x11vnc' with pid 116
+2022-10-30 00:16:43,265 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:43,268 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:44,271 INFO spawned: 'x11vnc' with pid 117
+2022-10-30 00:16:45,286 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:45,288 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:46,291 INFO spawned: 'x11vnc' with pid 118
+2022-10-30 00:16:47,305 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:47,308 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:48,311 INFO spawned: 'x11vnc' with pid 119
+2022-10-30 00:16:49,322 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:49,324 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:50,328 INFO spawned: 'x11vnc' with pid 120
+2022-10-30 00:16:51,338 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:51,341 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:52,344 INFO spawned: 'x11vnc' with pid 121
+2022-10-30 00:16:53,359 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:53,362 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:54,365 INFO spawned: 'x11vnc' with pid 122
+2022-10-30 00:16:55,382 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:55,386 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:56,389 INFO spawned: 'x11vnc' with pid 123
+2022-10-30 00:16:57,406 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:57,409 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:16:58,412 INFO spawned: 'x11vnc' with pid 124
+2022-10-30 00:16:59,423 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:16:59,425 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:17:00,429 INFO spawned: 'x11vnc' with pid 125
+2022-10-30 00:17:01,442 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:17:01,445 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:17:02,448 INFO spawned: 'x11vnc' with pid 126
+2022-10-30 00:17:03,465 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:17:03,468 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:17:04,471 INFO spawned: 'x11vnc' with pid 127
+2022-10-30 00:17:05,482 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:17:05,485 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:17:06,488 INFO spawned: 'x11vnc' with pid 128
+2022-10-30 00:17:07,499 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:17:07,502 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:17:08,505 INFO spawned: 'x11vnc' with pid 129
+2022-10-30 00:17:09,518 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:17:09,520 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:17:10,524 INFO spawned: 'x11vnc' with pid 130
+2022-10-30 00:17:11,537 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:17:11,540 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:17:12,543 INFO spawned: 'x11vnc' with pid 131
+2022-10-30 00:17:13,557 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:17:13,560 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:17:14,563 INFO spawned: 'x11vnc' with pid 132
+2022-10-30 00:17:15,581 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:17:15,583 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:17:16,586 INFO spawned: 'x11vnc' with pid 133
+2022-10-30 00:17:17,598 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:17:17,600 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:17:18,603 INFO spawned: 'x11vnc' with pid 134
+2022-10-30 00:17:19,618 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:17:19,625 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:17:20,630 INFO spawned: 'x11vnc' with pid 135
+2022-10-30 00:17:21,642 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:17:21,645 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:17:22,647 INFO spawned: 'x11vnc' with pid 136
+2022-10-30 00:17:23,656 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:17:23,658 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:17:24,661 INFO spawned: 'x11vnc' with pid 137
+2022-10-30 00:17:25,673 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:17:25,676 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:17:26,679 INFO spawned: 'x11vnc' with pid 138
+2022-10-30 00:17:27,697 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:17:27,700 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:17:28,703 INFO spawned: 'x11vnc' with pid 139
+2022-10-30 00:17:29,714 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:17:29,717 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:17:30,720 INFO spawned: 'x11vnc' with pid 140
+2022-10-30 00:17:31,737 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:17:31,740 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:17:32,743 INFO spawned: 'x11vnc' with pid 141
+2022-10-30 00:17:33,754 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:17:33,757 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:17:34,760 INFO spawned: 'x11vnc' with pid 142
+2022-10-30 00:17:35,778 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:17:35,781 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:17:36,783 INFO spawned: 'x11vnc' with pid 143
+2022-10-30 00:17:37,799 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:17:37,803 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:17:38,806 INFO spawned: 'x11vnc' with pid 144
+2022-10-30 00:17:39,819 INFO success: x11vnc entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-10-30 00:17:39,821 INFO exited: x11vnc (exit status 1; not expected)
+2022-10-30 00:17:40,825 INFO spawned: 'x11vnc' with pid 145
+2022-10-30 00:17:40,958 WARN received SIGTERM indicating exit request
+2022-10-30 00:17:40,959 INFO waiting for startxfce4, sshd, x11vnc to die
+2022-10-30 00:17:40,960 INFO stopped: sshd (exit status 0)
+2022-10-30 00:17:41,588 INFO stopped: startxfce4 (terminated by SIGTERM)
+2022-10-30 00:17:41,590 INFO stopped: x11vnc (terminated by SIGTERM)

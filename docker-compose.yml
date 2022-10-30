@@ -1,7 +1,7 @@
 version: "1.0"
 services:
   app:
-    image: phdev1/war-game:1.0
+    image: phdev1/war-game-test:1.0
     container_name: war-game
     volumes:
       - ./:/app
