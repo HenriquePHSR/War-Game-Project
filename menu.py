@@ -33,9 +33,9 @@ class menu:
                 #entra no game_state de settings
                 self.main.game_state = 1
 
-        # Se jogador pressionou 'esc', sai do jogo
-        elif self.main.teclado.key_pressed("escape"):
-            self.main.janela.close()
+        # # Se jogador pressionou 'esc', sai do jogo (não estava iniciando com essa linha, sempre fechava)
+        # elif self.main.teclado.key_pressed("escape"):
+        #     self.main.janela.close()
 
 
 

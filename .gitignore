@@ -1,2 +1,4 @@
 supervisord.log
 supervisord.pid
+pplay-PPlay_v1.1
+__pycache__

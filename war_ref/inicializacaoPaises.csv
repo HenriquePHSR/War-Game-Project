@@ -1,0 +1,45 @@
+﻿identificador;nome;fronteiras
+brasil;Brasil;argentina peru venezuela argelia
+argentina;Argentina;brasil peru venezuela
+venezuela;Venezuela;brasil peru argentina mexico
+peru;Peru;brasil argentina venezuela
+sumatra;Sumatra;vietna australiaOcidental
+novaGuine;Nova Guiné;australiaOcidental sumatra australiaOriental
+australiaOriental;Austrália Oriental;australiaOcidental sumatra novaGuine novaZelandia
+australiaOcidental;Austrália Ocidental;sumatra novaGuine australiaOriental
+novaZelandia;Nova Zelândia;australiaOriental
+moscou;Moscou;omsk aral orienteMedio escandinavia alemanha italia
+franca;França;alemanha italia reinoUnido marrocos
+alemanha;Alemanha;escandinavia franca italia reinoUnido moscou
+escandinavia;Escandinávia;moscou alemanha reinoUnido
+islandia;Islândia;reinoUnido groelandia
+italia;Itália;orienteMedio moscou alemanha franca egito
+reinoUnido;Reino Único;franca alemanha escandinavia islandia
+mexico;México;venezuela novaIorque california
+otawa;Otawa;novaIorque vancouver labrador mackenzie
+mackenzie;Mackenzie;vancouver groelandia alaska labrador
+novaIorque;Nova Iorque;mexico california otawa labrador
+vancouver;Vancouver;otawa california mackenzie alaska
+groelandia;Groelandia;islandia labrador mackenzie
+california;Califórnia;vancouver mackenzie otawa california novaIorque mexico
+alaska;Alaska;mackenzie
+labrador;Labrador;otawa novaIorque groelandia mackenzie
+argelia;Argélia;sudao egito marrocos congo brasil
+marrocos;Marrocos;argelia egito franca
+sudao;Sudão;orienteMedio egito argelia congo africaDoSul
+africaDoSul;África do Sul;madagascar congo sudao
+congo;Congo;sudao argelia africaDoSul
+egito;Egito;orienteMedio sudao argelia marrocos italia
+madagascar;Madagascar;africaDoSul
+orienteMedio;Oriente Médio;egito sudao italia moscou aral india
+mongolia;Mongólia;tchita china dudinca omsk
+india;Índia;orienteMedio aral china vietna
+siberia;Sibéria;vladvostok tchita dudinca
+china;China;mongolia tchita vladvostok japao aral india vietna omsk
+aral;Aral;orienteMedio india china omsk moscou
+omsk;Omsk;moscou dudinca aral mongolia china
+dudinca;Dundica;omsk siberia tchita mongolia
+japao;Japão;vladvostok china
+tchita;Tchita;vladvostok china mongolia dudinca siberia
+vladvostok;Vladvostok;siberia tchita china japao
+vietna;Vietnã;china india sumatra
