@@ -25,7 +25,9 @@ class Boot:
             identificador = line.identificador
             fronteiras = line.fronteiras
             gameImage = GameImage(f'./war_ref/png/paises/{identificador}.png')
-            territorios.append(Pais(nome, identificador, fronteiras, gameImage))
+            x = line.pivoX
+            y = line.pivoY
+            territorios.append(Pais(nome, identificador, fronteiras, gameImage, x, y))
         return territorios
 
     def carregarContinentes(self, listaDePaises):
@@ -61,7 +63,7 @@ class Boot:
             if cor == COR_NULL:
                 cor = None
             obj = Objetivo(id, continentes, continentesAdcionais,
-                           territoriosAdicionais, tropasMinimas, cor)
+                           territoriosAdicionais, tropasMinimas, cor, GameImage(line.cardIconPath))
             objetivos.append(obj)
         return objetivos
     # def obterFronteiras(self, pais):

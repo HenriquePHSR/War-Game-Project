@@ -53,8 +53,10 @@ class main:
 principal = main()
 # GameLoop
 while(True):
+    principal.gameLoop.fundo.draw()
     if principal.game_state == 0:
         principal.menu.start_window()
+
 
     #condicao de jogo
     if principal.game_state == 1:
