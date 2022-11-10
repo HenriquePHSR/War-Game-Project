@@ -62,8 +62,10 @@ class Boot:
             cor = line.corAlvo
             if cor == COR_NULL:
                 cor = None
+            objTmp = GameImage(line.cardIconPath)
+            objTmp.set_position(669, 680)
             obj = Objetivo(id, continentes, continentesAdcionais,
-                           territoriosAdicionais, tropasMinimas, cor, GameImage(line.cardIconPath))
+                           territoriosAdicionais, tropasMinimas, cor, objTmp)
             objetivos.append(obj)
         return objetivos
     # def obterFronteiras(self, pais):

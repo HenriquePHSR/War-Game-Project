@@ -49,6 +49,7 @@ class main:
         self.fps_per_sec = 0
         self.menu = menu.menu(self)
         self.gameLoop = GameLoop(self)
+        
 
 principal = main()
 # GameLoop

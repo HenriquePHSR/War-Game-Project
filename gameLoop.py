@@ -22,7 +22,7 @@ class GameLoop:
         self.cursor = self.janela.get_mouse()
         self.fundo = GameImage("./war_ref/png/mapaComFronteirasAquaticas.png")
         self.loaded = False
-        self.army_colors = ['blue', 'green']
+        self.army_colors = ['blue', 'green', 'red']
         self.mousePixel = GameImage("./war_ref/png/mousePixel.png")
         self.notPressed = True
         self.whiteArmyIcon = GameImage('./war_ref/png/army_40_40/small_army_white_40_40.png')
@@ -32,22 +32,29 @@ class GameLoop:
         self.loading.play()
         self.iconsPool = []
         self.initIcons = False
+        self.janela_pont = None
+        self.mostrarCardButton = GameImage('./war_ref/png/empty-button.png')
+        self.objetivoToogle = None
+        self.numJogadores = 3
+        self.passarVezBtn = GameImage('./war_ref/png/empty-button_67_46.png')
         self.inicializa()
 
     def inicializa(self):
         # Refatorar todos os métodos de recarregamento para uma thread paralela enquanto carrrega o loading 
+        self.passarVezBtn.set_position(900, 680)
+        self.primeiraRodada = 1
         self.boot = Boot(self.janela)
         self.paises = self.boot.carregarPaises()
         self.paisesDicionario = {}
         self.continentes = self.boot.carregarContinentes(self.paises)
-        
+        self.objetivoToogle = 0
         self.continentesDicionario = {}
         self.objetivos = self.boot.carregarObjetivos()
         # self.paises = gerarSpritePaises(self.paises)
         self.jogadores = []
         #self.jogadoresPontById = [i for i in range(10)]
-        self.inicializaJogadores()
         self.distribuiPaises()
+        self.inicializaJogadores()
         for p in self.paises:
             print(p)
         self.loaded = True
@@ -67,10 +74,12 @@ class GameLoop:
             self.continentesDicionario[continente.id] = continente
 
     def inicializaJogadores(self):
-        for id in range(2):
+        for id in range(self.numJogadores):
             rand_idx = random.randrange(len(self.objetivos))
             obj = self.objetivos.pop(rand_idx)
-            self.jogadores.append(Jogador(id, obj, False, self.army_colors[id], GameImage('./war_ref/png/army_40_40/small_army_'+self.army_colors[id]+'_40_40.png'), GameImage('./war_ref/png/army_65_65/small_army_'+self.army_colors[id]+'_65_65.png')))
+            tmpJogador = Jogador(id, obj, False, self.army_colors[id], GameImage('./war_ref/png/army_40_40/small_army_'+self.army_colors[id]+'_40_40_toogle.png'), GameImage('./war_ref/png/army_65_65/small_army_'+self.army_colors[id]+'_65_65.png'), 1)
+            tmpJogador.aDistribuir = int(len(self.paisesDoJogador(tmpJogador))/2)
+            self.jogadores.append(tmpJogador)
             
 
     def distribuiPaises(self):
@@ -78,8 +87,9 @@ class GameLoop:
         index = 0
         for pais in self.paises:
             pais.idJogador = index
+            pais.tropas = 1
             index += 1
-            if index == 2:
+            if index == self.numJogadores:
                 index = 0
 
     def paisesDoJogador(self, jogador):
@@ -108,12 +118,24 @@ class GameLoop:
         if self.cursor.is_button_pressed(button=1) and self.notPressed:
             self.notPressed = False
             for pais in self.paises:
+
+
                 if self.mousePixel.collided_perfect(pais.gameImage):
                     if self.paisSelecionado == None:
                         self.paisSelecionado = pais
+
                         if self.paisSelecionado.pertenceA(self.jogadorAtual):
                             print(f'jogador {self.jogadorAtual.idJogador} selecionou {pais.nome}')
                             self.jogadorAtual.selecionado = pais
+
+                            if self.primeiraRodada == 1 and self.jogadorAtual.aDistribuir >= 1 and self.mousePixel.collided_perfect(pais.gameImage):
+                                self.jogadorAtual.selecionado.tropas += 1
+                                self.jogadorAtual.aDistribuir -= 1
+                                print(self.jogadorAtual.aDistribuir)
+                                self.paisSelecionado = None
+                                pass
+                            
+
                         else:
                             self.paisSelecionado = None
                             print(f'o jogador selecionou {pais.nome} que não pertence a ele')
@@ -139,6 +161,49 @@ class GameLoop:
             self.jogadorAtual.selecionado = self.paisSelecionado
         else:
             self.jogadorAtual.selecionado = Pais('','','',None,9999,9999)
+    
+    def desenhaInterface(self):
+        self.janela.draw_text("Vez do jogador "+str(self.jogadorAtual.cor), 100, 60, 20, (255,255,255))
+        if self.primeiraRodada == 1:
+            self.janela.draw_text("Distribuição inicial de tropas do jogador "+str(self.jogadorAtual.cor), 100, 110, 20, (255,255,255))
+        
+        # Desenha icones de exercito
+        for pais in self.paises:
+            pos = self.paisesDicionario[pais.identificador].getPos()
+            #print('========= '+str(pais.idJogador))
+            #self.whiteArmyIcon.set_position(pos[0]-20, pos[1]-20)
+            #self.whiteArmyIcon.draw()
+            
+            for jogador in self.jogadores:
+                if pais.pertenceA(jogador):
+                    jogador.jogadorArmyIcon.set_position(pos[0]-20, pos[1]-20)
+                    jogador.jogadorArmyIcon.draw()
+                    self.janela.draw_text(str(pais.tropas), pos[0]-3, pos[1]-17, 14)
+
+        if self.jogadorAtual.selecionado.identificador != '':
+            #print(self.jogadorAtual.selecionado.identificador)
+            if self.primeiraRodada == 1 and self.jogadorAtual.aDistribuir == 0:
+                self.primeiraRodada = 0
+            else:
+                for vizinho in self.jogadorAtual.selecionado.vizinhos:
+                    if self.paisesDicionario[vizinho].idJogador != 99:
+                        pos = self.paisesDicionario[vizinho].getPos()
+                        #print('========= '+str(self.paisesDicionario[vizinho].idJogador))
+                        self.jogadores[self.paisesDicionario[vizinho].idJogador].jogadorArmyIcon65.set_position(pos[0]-35, pos[1]-35)
+                        self.jogadores[self.paisesDicionario[vizinho].idJogador].jogadorArmyIcon65.draw()
+                        self.janela.draw_text(str(self.paisesDicionario[vizinho].tropas), pos[0], pos[1]-20, 14)
+                        #atkIcon = GameImage('./war_ref/png/army_65_65/small_army_'+self.jogadorAtual.cor+'_65_65.png')
+                        #atkIcon.set_position(pos[0]-20, pos[1]-20)
+                        #self.iconsPool.append(atkIcon)
+        if self.mousePixel.collided_perfect(self.jogadorAtual.objetivo.objCardIcon) and self.objetivoToogle == 0 and self.cursor.is_button_pressed(button=1):
+            self.objetivoToogle=1
+            self.jogadorAtual.objetivo.objCardIcon.set_position(669, 500)
+        elif self.mousePixel.collided_perfect(self.jogadorAtual.objetivo.objCardIcon) and self.objetivoToogle == 1 and self.cursor.is_button_pressed(button=1):
+            self.jogadorAtual.objetivo.objCardIcon.set_position(669, 680)
+            self.objetivoToogle=0
+        self.jogadorAtual.objetivo.objCardIcon.draw()
+        if self.primeiraRodada == 0:
+            self.passarVezBtn.draw()
 
     def run(self):
         # print("Inimigos:")
@@ -154,37 +219,27 @@ class GameLoop:
         self.mousePixel.set_position(x=posicaoMouse[0], y=posicaoMouse[1])
         self.mousePixel.draw()
 
-        for pais in self.paises:
-            pos = self.paisesDicionario[pais.identificador].getPos()
-            #print('========= '+str(pais.idJogador))
-            #self.whiteArmyIcon.set_position(pos[0]-20, pos[1]-20)
-            #self.whiteArmyIcon.draw()
-            for jogador in self.jogadores:
-                if pais.pertenceA(jogador):
-                    jogador.jogadorArmyIcon.set_position(pos[0]-20, pos[1]-20)
-                    jogador.jogadorArmyIcon.draw()
 
-        
-        self.selecionarPais()
-        if self.jogadorAtual.selecionado.identificador != '':
-            #print(self.jogadorAtual.selecionado.identificador)
-            for vizinho in self.jogadorAtual.selecionado.vizinhos:
-                if self.paisesDicionario[vizinho].idJogador != 99:
-                    pos = self.paisesDicionario[vizinho].getPos()
-                    #print('========= '+str(self.paisesDicionario[vizinho].idJogador))
-                    self.jogadores[self.paisesDicionario[vizinho].idJogador].jogadorArmyIcon65.set_position(pos[0]-35, pos[1]-35)
-                    self.jogadores[self.paisesDicionario[vizinho].idJogador].jogadorArmyIcon65.draw()
-                    #atkIcon = GameImage('./war_ref/png/army_65_65/small_army_'+self.jogadorAtual.cor+'_65_65.png')
-                    #atkIcon.set_position(pos[0]-20, pos[1]-20)
-                    #self.iconsPool.append(atkIcon)
-
-        self.jogadorAtual.objetivo.objCardIcon.set_position(669, 558)
-        self.jogadorAtual.objetivo.objCardIcon.draw()
             
-        
 
+        self.selecionarPais()
 
-        
+        self.desenhaInterface()
+        #self.mostrarCardButton.draw()
+
+        if self.primeiraRodada == 1:
+            if self.jogadorAtual.aDistribuir == 0 and self.jogadorAtual.idJogador < self.numJogadores:
+                if self.jogadorAtual.idJogador+1 == self.numJogadores:
+                    self.primeiraRodada = 0
+                    self.jogadorAtual = self.jogadores[0]
+                else:
+                    self.jogadorAtual = self.jogadores[self.jogadorAtual.idJogador+1]
+        elif self.mousePixel.collided_perfect(self.passarVezBtn) and self.cursor.is_button_pressed(button=1):
+            if self.jogadorAtual.idJogador+1 == self.numJogadores:
+                self.jogadorAtual = self.jogadores[0]
+            else:
+                self.jogadorAtual = self.jogadores[self.jogadorAtual.idJogador+1]
+
         # loading.draw()
         self.loading.update()
         # self.janela.update()

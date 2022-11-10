@@ -9,14 +9,17 @@ class Jogador:
 	cor = ''
 	jogadorArmyIcon = None
 	jogadorArmyIcon65 = None
+	humano = -1
+	aDistribuir = -1
 
-	def __init__(self, id, objetivo, isHumano, cor, jogadorArmyIcon, jogadorArmyIcon65):
+	def __init__(self, id, objetivo, isHumano, cor, jogadorArmyIcon, jogadorArmyIcon65, humano):
 		self.idJogador = id
 		self.objetivo = objetivo
 		self.humano = isHumano
 		self.cor = cor
 		self.jogadorArmyIcon = jogadorArmyIcon
 		self.jogadorArmyIcon65 = jogadorArmyIcon65
+		self.humano = humano
 
 	def __repr__(self):
 		if(self.humano):
