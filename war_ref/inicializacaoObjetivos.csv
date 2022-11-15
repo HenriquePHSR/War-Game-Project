@@ -1,12 +1,7 @@
-﻿idObjetivo;continentesFixos;continentesAdicionais;territoriosAdicionais;tropasMinimas;corAlvo
-1;asia americaDoSul;0;0;0;nenhuma
-2;europa oceania;1;0;0;nenhuma
-3;europa americaDoSul;1;0;0;nenhuma
-4;asia africa;0;0;0;nenhuma
-5;americaDoNorte africa;0;0;0;nenhuma
-6;americaDoNorte oceania;0;0;0;nenhuma
-7;nenhum;0;24;0;nenhuma
-8;nenhum;0;18;2;nenhuma
-9;nenhum;0;0;0;azul
-10;nenhum;0;0;0;amarelo
-11;nenhum;0;0;0;vermelho
+﻿idObjetivo;continentesFixos;continentesAdicionais;territoriosAdicionais;tropasMinimas;corAlvo;cardIconPath
+1;europa asia;1;0;0;nenhuma;./war_ref/png/cards/objetivo-card/objetivo-conquiste-1.png
+2;americaDoNorte americaDoSul;1;0;0;nenhuma;./war_ref/png/cards/objetivo-card/objetivo-conquiste-2.png
+3;nenhum;0;27;0;nenhuma;./war_ref/png/cards/objetivo-card/objetivo-conquiste-3.png
+4;nenhum;0;0;0;azul;./war_ref/png/cards/objetivo-card/objetivo-destrua-azul.png
+5;nenhum;0;0;0;verde;./war_ref/png/cards/objetivo-card/objetivo-destrua-verde.png
+6;nenhum;0;0;0;vermelho;./war_ref/png/cards/objetivo-card/objetivo-destrua-vermelho.png

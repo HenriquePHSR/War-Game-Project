@@ -9,14 +9,16 @@ class Objetivo:
     territoriosAdicionais = 0
     tropasMinimas = 0
     corAlvo = ""
+    objCardIcon = None
 
-    def __init__(self, id, continentes, continentesAdicionais, territoriosAdicionais, tropasMinimas, corAlvo):
+    def __init__(self, id, continentes, continentesAdicionais, territoriosAdicionais, tropasMinimas, corAlvo, objCardIcon):
         self.id = id
         self.continentes = continentes.split(" ")
         self.continentesAdicionais = continentesAdicionais
         self.territoriosAdicionais = territoriosAdicionais
         self.tropasMinimas = tropasMinimas
         self.corAlvo = corAlvo
+        self.objCardIcon = objCardIcon
 
     def __repr__(self):
         resposta = f'Objetivo#{self.id}:'
