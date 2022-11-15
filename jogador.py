@@ -11,6 +11,7 @@ class Jogador:
 	jogadorArmyIcon65 = None
 	humano = -1
 	aDistribuir = -1
+	atacarNum = -1
 
 	def __init__(self, id, objetivo, isHumano, cor, jogadorArmyIcon, jogadorArmyIcon65, humano):
 		self.idJogador = id
