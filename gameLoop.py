@@ -37,7 +37,7 @@ class GameLoop:
         self.objetivoToogle = None
         self.numJogadores = 3
         self.passarVezBtn = GameImage('./war_ref/png/empty-button_67_46.png')
-        self.declarandoAtk = [False, None, None, 0] # coloca o joga em mode de declaração de atacante
+        self.declarandoAtk = [False, None, None, -1] # coloca o joga em modo de declaração de atacante
         self.inicializa()
 
     def inicializa(self):
@@ -184,7 +184,7 @@ class GameLoop:
                         if pais.identificador in self.paisSelecionado.vizinhos:
                             if pais.ehInimigo(self.paisSelecionado):
                                 print(f'\t{self.paisSelecionado.nome} ataca {pais.nome}')
-                                self.declarandoAtk = [True, self.paisesDicionario[self.paisSelecionado.identificador], pais, 0] # inicializa declaracao de atk
+                                self.declarandoAtk = [True, self.paisSelecionado, pais, 0] # inicializa declaracao de atk
                                 
                             else:
                                 print(f'\t{self.paisSelecionado.nome} enviou reforços para {pais.nome}')
@@ -208,15 +208,17 @@ class GameLoop:
         # escolher entre 2 ou 3 tropas
         # calculo do atk
         # movimenta tropa a escolha 1 ou num atacante
+        #print('Em rotina de atk stage '+str(self.declarandoAtk[3]))
         if paisAtacante.tropas > 1:
             if self.declarandoAtk[3] == 0: # reposiciona icone escolha, inicializa btn
-                self.jogadores[self.declarandoAtk[1].idJogador].jogadorArmyIcon65.set_position(500,500)
+                self.jogadores[self.declarandoAtk[1].idJogador].jogadorArmyIcon65.set_position(400,500)
                 self.jogadores[self.declarandoAtk[1].idJogador].atacarNum = 2
                 self.iconsPool.append(GameImage("war_ref/png/empty-button_67_46.png"))
-                self.iconsPool[-1].set_position(500, 600)
+                self.iconsPool[-1].set_position(400, 600)
                 self.declarandoAtk[3] = 1
             if self.declarandoAtk[3] == 1: # desenha icone de escolha
                 self.jogadores[self.declarandoAtk[1].idJogador].jogadorArmyIcon65.draw()
+                self.janela.draw_text(str(self.jogadores[self.declarandoAtk[1].idJogador].atacarNum), 445, 505, 20)
                 self.iconsPool[-1].draw()
                 if self.mousePixel.collided_perfect(self.jogadores[self.declarandoAtk[1].idJogador].jogadorArmyIcon65) and self.cursor.is_button_pressed(button=1):
                     if self.jogadores[self.declarandoAtk[1].idJogador].atacarNum == 2:
@@ -225,7 +227,7 @@ class GameLoop:
                         self.jogadores[self.declarandoAtk[1].idJogador].atacarNum = 2
                 if self.mousePixel.collided_perfect(self.iconsPool[-1]) and self.cursor.is_button_pressed(button=1):
                     self.declarandoAtk[3] = 2
-            if self.declarandoAtk[3] == 2:
+            if self.declarandoAtk[3] == 2: # calcula forcas
                 atkForce = [random.randrange(1,6) for i in range(self.jogadores[self.declarandoAtk[1].idJogador].atacarNum)]
                 if self.declarandoAtk[2].tropas > 2:
                     defForce = [random.randrange(1,6) for i in range(3)]
@@ -237,10 +239,27 @@ class GameLoop:
                 defForce = sorted(defForce,reverse=True)
                 print(atkForce)
                 print(defForce)
-                self.declarandoAtk=[False, None, None, 0] # Tira do mode de declaracao de atk
+                atacantesInvasores=0
+                for i in range(len(atkForce)):
+                    if 0 <= i < len(defForce):
+                        if atkForce[i] > defForce[i]:
+                            paisAtacado.tropas -= 1
+                            atacantesInvasores += 1
+                        else:
+                            paisAtacante.tropas -= 1
+                    else:
+                        paisAtacado.tropas -= 1
+                        atacantesInvasores += 1
+                if paisAtacado.tropas <= 0:
+                    paisAtacado.idJogador = paisAtacante.idJogador
+                    paisAtacado.tropas = atacantesInvasores
+                    paisAtacante.tropas -= atacantesInvasores
+                self.declarandoAtk=[False, None, None, -1] # Tira do mode de declaracao de atk
+        else:
+            self.declarandoAtk=[False, None, None, -1] # Tira do mode de declaracao de atk
         return 0
     
-    def rotinaReforco(jogadorRoforco, paisReforcado):
+    def rotinaReforco(jogadorReforco, paisReforcado):
         return 0
 
     def run(self):
@@ -277,8 +296,9 @@ class GameLoop:
                 self.jogadorAtual = self.jogadores[0]
             else:
                 self.jogadorAtual = self.jogadores[self.jogadorAtual.idJogador+1]
+            self.declarandoAtk=[False, None, None, -1]
 
-
+        #print(self.declarandoAtk)
         if self.declarandoAtk[0]:
             self.rotinaAtk(self.declarandoAtk[1], self.declarandoAtk[2])
         
