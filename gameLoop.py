@@ -37,7 +37,9 @@ class GameLoop:
         self.objetivoToogle = None
         self.numJogadores = 3
         self.passarVezBtn = GameImage('./war_ref/png/empty-button_67_46.png')
+        # refatorar ambos declarandoAtk e declarandoReforco como classe de estado da aplicação
         self.declarandoAtk = [False, None, None, -1] # coloca o joga em modo de declaração de atacante
+        self.declarandoReforco = [False, None, None, -1] # coloca o joga em modo de declaração de reforco
         self.inicializa()
 
     def inicializa(self):
@@ -188,7 +190,7 @@ class GameLoop:
                                 
                             else:
                                 print(f'\t{self.paisSelecionado.nome} enviou reforços para {pais.nome}')
-                                
+                                self.declarandoReforco = [True, self.paisSelecionado, pais, 0] # inicializa declaracao de reforco
                         else:
                             print(
                                 f'\t{self.paisSelecionado.nome} não possui fronteira com {pais.nome}')
@@ -221,10 +223,15 @@ class GameLoop:
                 self.janela.draw_text(str(self.jogadores[self.declarandoAtk[1].idJogador].atacarNum), 445, 505, 20)
                 self.iconsPool[-1].draw()
                 if self.mousePixel.collided_perfect(self.jogadores[self.declarandoAtk[1].idJogador].jogadorArmyIcon65) and self.cursor.is_button_pressed(button=1):
-                    if self.jogadores[self.declarandoAtk[1].idJogador].atacarNum == 2:
+                    if self.jogadores[self.declarandoAtk[1].idJogador].atacarNum == 2 and paisAtacante.tropas > 3:
                         self.jogadores[self.declarandoAtk[1].idJogador].atacarNum = 3
-                    else:
+                    elif self.jogadores[self.declarandoAtk[1].idJogador].atacarNum == 1:
                         self.jogadores[self.declarandoAtk[1].idJogador].atacarNum = 2
+                    else:
+                        self.jogadores[self.declarandoAtk[1].idJogador].atacarNum = 1
+                    if paisAtacante.tropas == 2:
+                        self.jogadores[self.declarandoAtk[1].idJogador].atacarNum = 1
+                    sleep(0.1)
                 if self.mousePixel.collided_perfect(self.iconsPool[-1]) and self.cursor.is_button_pressed(button=1):
                     self.declarandoAtk[3] = 2
             if self.declarandoAtk[3] == 2: # calcula forcas
@@ -252,14 +259,47 @@ class GameLoop:
                         atacantesInvasores += 1
                 if paisAtacado.tropas <= 0:
                     paisAtacado.idJogador = paisAtacante.idJogador
-                    paisAtacado.tropas = atacantesInvasores
-                    paisAtacante.tropas -= atacantesInvasores
+                    if paisAtacante.tropas <= atacantesInvasores:
+                        paisAtacado.tropas = 1
+                        paisAtacante.tropas -= 1
+                    else:
+                        paisAtacado.tropas = atacantesInvasores
+                        paisAtacante.tropas -= atacantesInvasores
                 self.declarandoAtk=[False, None, None, -1] # Tira do mode de declaracao de atk
         else:
             self.declarandoAtk=[False, None, None, -1] # Tira do mode de declaracao de atk
         return 0
     
-    def rotinaReforco(jogadorReforco, paisReforcado):
+    def rotinaReforco(self, paisReforco, paisReforcado):
+        if paisReforco.tropas > 1 and not paisReforco.enviouReforco:
+            if self.declarandoReforco[3] == 0: # inicializa
+                self.jogadores[self.declarandoReforco[1].idJogador].jogadorArmyIcon65.set_position(400,500)
+                self.jogadores[self.declarandoReforco[1].idJogador].atacarNum = 2
+                self.iconsPool.append(GameImage("war_ref/png/empty-button_67_46.png"))
+                self.iconsPool[-1].set_position(400, 600)
+                self.jogadores[self.declarandoReforco[1].idJogador].atacarNum = 1
+                self.declarandoReforco[3] = 1
+            if self.declarandoReforco[3] == 1: # desenha icone de escolha
+                self.jogadores[self.declarandoReforco[1].idJogador].jogadorArmyIcon65.draw()
+                self.janela.draw_text(str(self.jogadores[self.declarandoReforco[1].idJogador].atacarNum), 445, 505, 20)
+                self.iconsPool[-1].draw()
+                if self.mousePixel.collided_perfect(self.jogadores[self.declarandoReforco[1].idJogador].jogadorArmyIcon65) and self.cursor.is_button_pressed(button=1):
+                    if self.jogadores[self.declarandoReforco[1].idJogador].atacarNum  < paisReforco.tropas:
+                        self.jogadores[self.declarandoReforco[1].idJogador].atacarNum += 1
+                    if self.jogadores[self.declarandoReforco[1].idJogador].atacarNum == paisReforco.tropas:
+                        self.jogadores[self.declarandoReforco[1].idJogador].atacarNum = 1
+                    sleep(0.1)
+                if self.mousePixel.collided_perfect(self.iconsPool[-1]) and self.cursor.is_button_pressed(button=1): # btn continuar
+                    self.declarandoReforco[3] = 2
+            if self.declarandoReforco[3] == 2:
+                paisReforco.tropas -= self.jogadores[self.declarandoReforco[1].idJogador].atacarNum
+                paisReforcado.tropas += self.jogadores[self.declarandoReforco[1].idJogador].atacarNum
+                self.declarandoReforco=[False, None, None, -1] # Tira do mode de declaracao de reforco
+                paisReforco.enviouReforco = True
+        else:
+            self.declarandoReforco=[False, None, None, -1] # Tira do mode de declaracao de atk
+            paisReforco.enviouReforco = True
+            
         return 0
 
     def run(self):
@@ -292,6 +332,8 @@ class GameLoop:
                 else:
                     self.jogadorAtual = self.jogadores[self.jogadorAtual.idJogador+1]
         elif self.mousePixel.collided_perfect(self.passarVezBtn) and self.cursor.is_button_pressed(button=1):
+            for pais in self.paisesDoJogador(self.jogadorAtual):
+                pais.enviouReforco = False
             if self.jogadorAtual.idJogador+1 == self.numJogadores:
                 self.jogadorAtual = self.jogadores[0]
             else:
@@ -301,6 +343,9 @@ class GameLoop:
         #print(self.declarandoAtk)
         if self.declarandoAtk[0]:
             self.rotinaAtk(self.declarandoAtk[1], self.declarandoAtk[2])
+        
+        if self.declarandoReforco[1]:
+            self.rotinaReforco(self.declarandoReforco[1], self.declarandoReforco[2])
         
 
 

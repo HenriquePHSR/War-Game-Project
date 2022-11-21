@@ -7,6 +7,7 @@ class Pais:
         self.idJogador = 99
         self.tropas = -1
         self.pivo = (x, y)
+        self.enviouReforco = False
         
 
     def __repr__(self):
