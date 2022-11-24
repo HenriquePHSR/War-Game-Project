@@ -37,12 +37,15 @@ class GameLoop:
         self.objetivoToogle = None
         self.numJogadores = 3
         self.passarVezBtn = GameImage('./war_ref/png/empty-button_67_46.png')
+        # refatorar ambos declarandoAtk e declarandoReforco como classe de estado da aplicação
+        self.declarandoAtk = [False, None, None, -1] # coloca o joga em modo de declaração de atacante
+        self.declarandoReforco = [False, None, None, -1] # coloca o joga em modo de declaração de reforco
         self.inicializa()
 
     def inicializa(self):
         # Refatorar todos os métodos de recarregamento para uma thread paralela enquanto carrrega o loading 
         self.passarVezBtn.set_position(900, 680)
-        self.primeiraRodada = 1
+        self.primeiraRodada = 1 # coloca o jogo em modo de primeiro turno
         self.boot = Boot(self.janela)
         self.paises = self.boot.carregarPaises()
         self.paisesDicionario = {}
@@ -112,57 +115,8 @@ class GameLoop:
             if self.paisesDicionario[vizinho].idJogador == pais.idJogador:
                 paisesAliados.append(pais)
         return paisesAliados
-
-    def selecionarPais(self):
-        
-        if self.cursor.is_button_pressed(button=1) and self.notPressed:
-            self.notPressed = False
-            for pais in self.paises:
-
-
-                if self.mousePixel.collided_perfect(pais.gameImage):
-                    if self.paisSelecionado == None:
-                        self.paisSelecionado = pais
-
-                        if self.paisSelecionado.pertenceA(self.jogadorAtual):
-                            print(f'jogador {self.jogadorAtual.idJogador} selecionou {pais.nome}')
-                            self.jogadorAtual.selecionado = pais
-
-                            if self.primeiraRodada == 1 and self.jogadorAtual.aDistribuir >= 1 and self.mousePixel.collided_perfect(pais.gameImage):
-                                self.jogadorAtual.selecionado.tropas += 1
-                                self.jogadorAtual.aDistribuir -= 1
-                                print(self.jogadorAtual.aDistribuir)
-                                self.paisSelecionado = None
-                                pass
-                            
-
-                        else:
-                            self.paisSelecionado = None
-                            print(f'o jogador selecionou {pais.nome} que não pertence a ele')
-                            
-                    else:
-                        if pais.identificador in self.paisSelecionado.vizinhos:
-                            if pais.ehInimigo(self.paisSelecionado):
-                                print(f'\t{self.paisSelecionado.nome} ataca {pais.nome}')
-                                
-                            else:
-                                print(f'\t{self.paisSelecionado.nome} enviou reforços para {pais.nome}')
-                                
-                        else:
-                            print(
-                                f'\t{self.paisSelecionado.nome} não possui fronteira com {pais.nome}')
-                            
-                        self.paisSelecionado = None
-        elif self.cursor.is_button_pressed(button=1):
-            pass
-        else:
-            self.notPressed = True
-        if self.paisSelecionado != None:
-            self.jogadorAtual.selecionado = self.paisSelecionado
-        else:
-            self.jogadorAtual.selecionado = Pais('','','',None,9999,9999)
     
-    def desenhaInterface(self):
+    def desenhaInterface(self): # refatorar para classe
         self.janela.draw_text("Vez do jogador "+str(self.jogadorAtual.cor), 100, 60, 20, (255,255,255))
         if self.primeiraRodada == 1:
             self.janela.draw_text("Distribuição inicial de tropas do jogador "+str(self.jogadorAtual.cor), 100, 110, 20, (255,255,255))
@@ -204,6 +158,149 @@ class GameLoop:
         self.jogadorAtual.objetivo.objCardIcon.draw()
         if self.primeiraRodada == 0:
             self.passarVezBtn.draw()
+        
+
+    def selecionarPais(self):
+        if self.cursor.is_button_pressed(button=1) and self.notPressed:
+            self.notPressed = False
+            for pais in self.paises:
+                if self.mousePixel.collided_perfect(pais.gameImage):
+                    if self.paisSelecionado == None:
+                        self.paisSelecionado = pais
+
+                        if self.paisSelecionado.pertenceA(self.jogadorAtual):
+                            print(f'jogador {self.jogadorAtual.idJogador} selecionou {pais.nome}')
+                            self.jogadorAtual.selecionado = pais
+
+                            if self.primeiraRodada == 1 and self.jogadorAtual.aDistribuir >= 1 and self.mousePixel.collided_perfect(pais.gameImage):
+                                self.jogadorAtual.selecionado.tropas += 1
+                                self.jogadorAtual.aDistribuir -= 1
+                                print(self.jogadorAtual.aDistribuir)
+                                self.paisSelecionado = None
+                                pass
+                        else:
+                            self.paisSelecionado = None
+                            print(f'o jogador selecionou {pais.nome} que não pertence a ele')
+                            
+                    else:
+                        if pais.identificador in self.paisSelecionado.vizinhos:
+                            if pais.ehInimigo(self.paisSelecionado):
+                                print(f'\t{self.paisSelecionado.nome} ataca {pais.nome}')
+                                self.declarandoAtk = [True, self.paisSelecionado, pais, 0] # inicializa declaracao de atk
+                                
+                            else:
+                                print(f'\t{self.paisSelecionado.nome} enviou reforços para {pais.nome}')
+                                self.declarandoReforco = [True, self.paisSelecionado, pais, 0] # inicializa declaracao de reforco
+                        else:
+                            print(
+                                f'\t{self.paisSelecionado.nome} não possui fronteira com {pais.nome}')
+                            
+                        self.paisSelecionado = None
+        elif self.cursor.is_button_pressed(button=1):
+            pass
+        else:
+            self.notPressed = True
+        if self.paisSelecionado != None:
+            self.jogadorAtual.selecionado = self.paisSelecionado
+        else:
+            self.jogadorAtual.selecionado = Pais('','','',None,9999,9999)
+
+    def rotinaAtk(self,paisAtacante, paisAtacado):
+        # declara atk
+        # escolher entre 2 ou 3 tropas
+        # calculo do atk
+        # movimenta tropa a escolha 1 ou num atacante
+        #print('Em rotina de atk stage '+str(self.declarandoAtk[3]))
+        if paisAtacante.tropas > 1:
+            if self.declarandoAtk[3] == 0: # reposiciona icone escolha, inicializa btn
+                self.jogadores[self.declarandoAtk[1].idJogador].jogadorArmyIcon65.set_position(400,500)
+                self.jogadores[self.declarandoAtk[1].idJogador].atacarNum = 2
+                self.iconsPool.append(GameImage("war_ref/png/empty-button_67_46.png"))
+                self.iconsPool[-1].set_position(400, 600)
+                self.declarandoAtk[3] = 1
+            if self.declarandoAtk[3] == 1: # desenha icone de escolha
+                self.jogadores[self.declarandoAtk[1].idJogador].jogadorArmyIcon65.draw()
+                self.janela.draw_text(str(self.jogadores[self.declarandoAtk[1].idJogador].atacarNum), 445, 505, 20)
+                self.iconsPool[-1].draw()
+                if self.mousePixel.collided_perfect(self.jogadores[self.declarandoAtk[1].idJogador].jogadorArmyIcon65) and self.cursor.is_button_pressed(button=1):
+                    if self.jogadores[self.declarandoAtk[1].idJogador].atacarNum == 2 and paisAtacante.tropas > 3:
+                        self.jogadores[self.declarandoAtk[1].idJogador].atacarNum = 3
+                    elif self.jogadores[self.declarandoAtk[1].idJogador].atacarNum == 1:
+                        self.jogadores[self.declarandoAtk[1].idJogador].atacarNum = 2
+                    else:
+                        self.jogadores[self.declarandoAtk[1].idJogador].atacarNum = 1
+                    if paisAtacante.tropas == 2:
+                        self.jogadores[self.declarandoAtk[1].idJogador].atacarNum = 1
+                    sleep(0.1)
+                if self.mousePixel.collided_perfect(self.iconsPool[-1]) and self.cursor.is_button_pressed(button=1):
+                    self.declarandoAtk[3] = 2
+            if self.declarandoAtk[3] == 2: # calcula forcas
+                atkForce = [random.randrange(1,6) for i in range(self.jogadores[self.declarandoAtk[1].idJogador].atacarNum)]
+                if self.declarandoAtk[2].tropas > 2:
+                    defForce = [random.randrange(1,6) for i in range(3)]
+                elif self.declarandoAtk[2].tropas == 2:
+                    defForce = [random.randrange(1,6) for i in range(2)]
+                else:
+                    defForce = [random.randrange(1,6) for i in range(1)]
+                atkForce = sorted(atkForce,reverse=True)
+                defForce = sorted(defForce,reverse=True)
+                print(atkForce)
+                print(defForce)
+                atacantesInvasores=0
+                for i in range(len(atkForce)):
+                    if 0 <= i < len(defForce):
+                        if atkForce[i] > defForce[i]:
+                            paisAtacado.tropas -= 1
+                            atacantesInvasores += 1
+                        else:
+                            paisAtacante.tropas -= 1
+                    else:
+                        paisAtacado.tropas -= 1
+                        atacantesInvasores += 1
+                if paisAtacado.tropas <= 0:
+                    paisAtacado.idJogador = paisAtacante.idJogador
+                    if paisAtacante.tropas <= atacantesInvasores:
+                        paisAtacado.tropas = 1
+                        paisAtacante.tropas -= 1
+                    else:
+                        paisAtacado.tropas = atacantesInvasores
+                        paisAtacante.tropas -= atacantesInvasores
+                self.declarandoAtk=[False, None, None, -1] # Tira do mode de declaracao de atk
+        else:
+            self.declarandoAtk=[False, None, None, -1] # Tira do mode de declaracao de atk
+        return 0
+    
+    def rotinaReforco(self, paisReforco, paisReforcado):
+        if paisReforco.tropas > 1 and not paisReforco.enviouReforco:
+            if self.declarandoReforco[3] == 0: # inicializa
+                self.jogadores[self.declarandoReforco[1].idJogador].jogadorArmyIcon65.set_position(400,500)
+                self.jogadores[self.declarandoReforco[1].idJogador].atacarNum = 2
+                self.iconsPool.append(GameImage("war_ref/png/empty-button_67_46.png"))
+                self.iconsPool[-1].set_position(400, 600)
+                self.jogadores[self.declarandoReforco[1].idJogador].atacarNum = 1
+                self.declarandoReforco[3] = 1
+            if self.declarandoReforco[3] == 1: # desenha icone de escolha
+                self.jogadores[self.declarandoReforco[1].idJogador].jogadorArmyIcon65.draw()
+                self.janela.draw_text(str(self.jogadores[self.declarandoReforco[1].idJogador].atacarNum), 445, 505, 20)
+                self.iconsPool[-1].draw()
+                if self.mousePixel.collided_perfect(self.jogadores[self.declarandoReforco[1].idJogador].jogadorArmyIcon65) and self.cursor.is_button_pressed(button=1):
+                    if self.jogadores[self.declarandoReforco[1].idJogador].atacarNum  < paisReforco.tropas:
+                        self.jogadores[self.declarandoReforco[1].idJogador].atacarNum += 1
+                    if self.jogadores[self.declarandoReforco[1].idJogador].atacarNum == paisReforco.tropas:
+                        self.jogadores[self.declarandoReforco[1].idJogador].atacarNum = 1
+                    sleep(0.1)
+                if self.mousePixel.collided_perfect(self.iconsPool[-1]) and self.cursor.is_button_pressed(button=1): # btn continuar
+                    self.declarandoReforco[3] = 2
+            if self.declarandoReforco[3] == 2:
+                paisReforco.tropas -= self.jogadores[self.declarandoReforco[1].idJogador].atacarNum
+                paisReforcado.tropas += self.jogadores[self.declarandoReforco[1].idJogador].atacarNum
+                self.declarandoReforco=[False, None, None, -1] # Tira do mode de declaracao de reforco
+                paisReforco.enviouReforco = True
+        else:
+            self.declarandoReforco=[False, None, None, -1] # Tira do mode de declaracao de atk
+            paisReforco.enviouReforco = True
+            
+        return 0
 
     def run(self):
         # print("Inimigos:")
@@ -221,8 +318,8 @@ class GameLoop:
 
 
             
-
-        self.selecionarPais()
+        if not self.declarandoAtk[0]: # nao selecionar se esta declarando
+            self.selecionarPais()
 
         self.desenhaInterface()
         #self.mostrarCardButton.draw()
@@ -235,10 +332,23 @@ class GameLoop:
                 else:
                     self.jogadorAtual = self.jogadores[self.jogadorAtual.idJogador+1]
         elif self.mousePixel.collided_perfect(self.passarVezBtn) and self.cursor.is_button_pressed(button=1):
+            for pais in self.paisesDoJogador(self.jogadorAtual):
+                pais.enviouReforco = False
             if self.jogadorAtual.idJogador+1 == self.numJogadores:
                 self.jogadorAtual = self.jogadores[0]
             else:
                 self.jogadorAtual = self.jogadores[self.jogadorAtual.idJogador+1]
+            self.declarandoAtk=[False, None, None, -1]
+
+        #print(self.declarandoAtk)
+        if self.declarandoAtk[0]:
+            self.rotinaAtk(self.declarandoAtk[1], self.declarandoAtk[2])
+        
+        if self.declarandoReforco[1]:
+            self.rotinaReforco(self.declarandoReforco[1], self.declarandoReforco[2])
+        
+
+
 
         # loading.draw()
         self.loading.update()
