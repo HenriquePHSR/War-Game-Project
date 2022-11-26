@@ -10,6 +10,7 @@ from PPlay.animation import *
 from PPlay.mouse import *
 from numpy import False_
 from boot import Boot
+from ia import Ia
 from pais import Pais
 from jogador import Jogador
 PAISES_MAX_POR_CONTINENTE = 8
@@ -63,8 +64,8 @@ class GameLoop:
         #self.jogadoresPontById = [i for i in range(10)]
         self.distribuiPaises()
         self.inicializaJogadores()
-        for p in self.paises:
-            print(p)
+        for j in self.jogadores:
+            print(j)
         self.loaded = True
         self.jogadorAtual = self.jogadores[0]
         self.paisSelecionado = None
@@ -87,10 +88,10 @@ class GameLoop:
         for id in range(self.numJogadores):
             rand_idx = random.randrange(len(self.objetivos))
             obj = self.objetivos.pop(rand_idx)
-            tmpJogador = Jogador(id, obj, False, self.army_colors[id], GameImage('./war_ref/png/army_40_40/small_army_'+self.army_colors[id]+'_40_40_toogle.png'), GameImage('./war_ref/png/army_65_65/small_army_'+self.army_colors[id]+'_65_65.png'), 1)
+            tmpJogador = Jogador(id, obj, False, self.army_colors[id], GameImage('./war_ref/png/army_40_40/small_army_'+self.army_colors[id]+'_40_40_toogle.png'), GameImage('./war_ref/png/army_65_65/small_army_'+self.army_colors[id]+'_65_65.png'))
             tmpJogador.aDistribuir = int(len(self.paisesDoJogador(tmpJogador))/2)
             self.jogadores.append(tmpJogador)
-            
+        self.jogadores[0].humano = True   
 
     def distribuiPaises(self):
         random.shuffle(self.paises)
@@ -124,9 +125,9 @@ class GameLoop:
         return paisesAliados
     
     def desenhaInterface(self): # refatorar para classe
-        self.janela.draw_text("Vez do jogador "+str(self.jogadorAtual.cor), 100, 60, 20, (255,255,255))
+        self.janela.draw_text(f"Vez do jogador {self.jogadorAtual.getCor()}", 100, 60, 20, (255,255,255))
         if self.primeiraRodada == 1:
-            self.janela.draw_text("Distribuição inicial de tropas do jogador "+str(self.jogadorAtual.cor), 100, 110, 20, (255,255,255))
+            self.janela.draw_text(f"Distribuição inicial de tropas do jogador {self.jogadorAtual.getCor()}", 100, 110, 20, (255,255,255))
         
         # Desenha icones de exercito
         for pais in self.paises:
@@ -137,9 +138,9 @@ class GameLoop:
             
             for jogador in self.jogadores:
                 if pais.pertenceA(jogador):
-                    jogador.jogadorArmyIcon.set_position(pos[0]-20, pos[1]-20)
+                    jogador.jogadorArmyIcon.set_position(pos[0]-20, pos[1]-30)
                     jogador.jogadorArmyIcon.draw()
-                    self.janela.draw_text(str(pais.tropas), pos[0]-3, pos[1]-17, 14)
+                    self.janela.draw_text(str(pais.tropas), pos[0]-3, pos[1]-27, 14)
 
         if self.jogadorAtual.selecionado.identificador != '':
             #print(self.jogadorAtual.selecionado.identificador)
@@ -163,7 +164,7 @@ class GameLoop:
             self.jogadorAtual.objetivo.objCardIcon.set_position(669, 680)
             self.objetivoToogle=0
         self.jogadorAtual.objetivo.objCardIcon.draw()
-        if self.primeiraRodada == 0:
+        if self.primeiraRodada == 0 and  self.jogadorAtual.aDistribuir == 0:
             self.passarVezBtn.draw()
         
 
@@ -185,6 +186,10 @@ class GameLoop:
                                 print(self.jogadorAtual.aDistribuir)
                                 self.paisSelecionado = None
                                 pass
+                            elif self.paisSelecionado.tropas < 2: # não exibe as opções se ele não possuir tropas suficientes
+                                print(f"O pais possui apenas 1 tropa e, por isso, ela não pode ser movimentada")
+                                self.jogadorAtual.selecionado = Pais('','','',None,9999,9999)
+                                self.paisSelecionado = None
                         else:
                             self.paisSelecionado = None
                             print(f'o jogador selecionou {pais.nome} que não pertence a ele')
@@ -264,7 +269,7 @@ class GameLoop:
                     else:
                         paisAtacado.tropas -= 1
                         atacantesInvasores += 1
-                if paisAtacado.tropas <= 0:
+                if paisAtacado.tropas <= 0: # vitoria do ataque
                     paisAtacado.idJogador = paisAtacante.idJogador
                     if paisAtacante.tropas <= atacantesInvasores:
                         paisAtacado.tropas = 1
@@ -312,33 +317,25 @@ class GameLoop:
         self.janela.draw_text("numero de tropas para distribuir "+str(self.jogadorAtual.aDistribuir), 100, 110, 20, (255,255,255))
         #print("fim da rodada")
         if self.contaTropas == 0:
-            print("entrou 1")
             self.jogadorAtual.aDistribuir = int(len(self.paisesDoJogador(self.jogadorAtual))/2)
             print(self.jogadorAtual.aDistribuir)
             self.contaTropas = 1
+        if self.jogadorAtual.humano:
+            print('jogador atual é humano')
 
         if self.cursor.is_button_pressed(button=1) :
-            print("entrou 2")
             if self.jogadorAtual.aDistribuir < 1:
-                print("entrou 3")
                 self.contaTropas = 0
                 self.inicioTurno = 0
 
             
             for pais in self.paises:
                 if self.mousePixel.collided_perfect(pais.gameImage):
-                    print("entrou 4")
-                    #if self.paisReforco == None:
-                        #print("entrou 5")
                     self.paisReforco = pais
 
                     if self.paisReforco.pertenceA(self.jogadorAtual):
-                        print("entrou 6")
                         print(f'jogador {self.jogadorAtual.idJogador} selecionou {pais.nome}')
-                        
-
                         if self.jogadorAtual.aDistribuir >= 1 and self.mousePixel.collided_perfect(pais.gameImage):
-                            print("entrou 7")
                             self.paisReforco.tropas += 1
                             self.jogadorAtual.aDistribuir -= 1
                             print(self.jogadorAtual.aDistribuir)
@@ -346,9 +343,51 @@ class GameLoop:
                             pass
                     
                     else:
-                        print("entrou 8")
                         self.paisReforco= None
                         print(f'o jogador selecionou {pais.nome} que não pertence a ele')
+
+    def verificaVitoriaJogador(self, jogadorAtual):
+        objetivo = jogadorAtual.objetivo
+        objetivoAlcancado = False
+        continentesAlvo = []
+        idPaisesAlvo = []
+        continentesAdicionais = []
+        paisesContinenteAdicional = []
+        if objetivo.corAlvo != '':
+            for jogador in self.jogadores:
+                if jogador.cor == objetivo.corAlvo:
+                    if self.paisesDoJogador(jogador) == []: # jogador da cor alvo foi exterminado
+                        objetivoAlcancado = True
+                        print(f"jogador {jogadorAtual.getCor()} ganhou")
+                    else:
+                        return False
+        else:
+            if objetivo.territoriosAdicionais != 0:
+                if len(self.paisesDoJogador(jogador)) >= objetivo.territoriosAdicionais: # jogador conquistou tds os territorios adicionais
+                    objetivoAlcancado = True
+                else:
+                    return False
+            if objetivo.continentes[0] != 'nenhum':
+                for idContinente in objetivo.continentes:
+                    for idPais in self.continentesDicionario[idContinente].paises:
+                        idPaisesAlvo.append(idPais)
+                for idPais in idPaisesAlvo:
+                    if self.paisesDicionario[idPais].pertenceA(jogadorAtual):
+                        objetivoAlcancado = True
+                    else:
+                        return False
+            if objetivo.continentesAdicionais == 1:
+                for continente in self.continentes:
+                    if continente not in objetivo.continentes:
+                        for idPais in continente.paises:
+                            if self.paisesDicionario[idPais].pertenceA(jogadorAtual):
+                                objetivoAlcancado = True
+                            else:
+                                objetivoAlcancado = False
+                                break
+                        if objetivoAlcancado == True:
+                            break
+        return objetivoAlcancado
 
     def run(self):
         # print("Inimigos:")

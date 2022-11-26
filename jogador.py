@@ -1,6 +1,12 @@
 from numpy import NAN
 from pais import Pais
 
+COR = {'blue': 'azul',
+			 'red': 'vermelho',
+			 'green': 'verde',
+			 'white': 'branco',
+			 'yellow': 'amarelo'}
+
 class Jogador:
 	idJogador = 0
 	objetivo = None
@@ -13,10 +19,9 @@ class Jogador:
 	aDistribuir = -1
 	atacarNum = -1
 
-	def __init__(self, id, objetivo, isHumano, cor, jogadorArmyIcon, jogadorArmyIcon65, humano):
+	def __init__(self, id, objetivo, humano, cor, jogadorArmyIcon, jogadorArmyIcon65):
 		self.idJogador = id
 		self.objetivo = objetivo
-		self.humano = isHumano
 		self.cor = cor
 		self.jogadorArmyIcon = jogadorArmyIcon
 		self.jogadorArmyIcon65 = jogadorArmyIcon65
@@ -24,7 +29,9 @@ class Jogador:
 
 	def __repr__(self):
 		if(self.humano):
-			return f'Jogador#0{self.id} (Humano):\n\t- {self.objetivo}'
-		return f'Jogador#0{self.id} (IA):\n\t- {self.objetivo}'
+			return f'Jogador {self.getCor()} (Humano):\n\t- {self.objetivo}'
+		return f'Jogador {self.getCor()} (IA):\n\t- {self.objetivo}'
 
+	def getCor(self):
+		return COR[self.cor]
 	

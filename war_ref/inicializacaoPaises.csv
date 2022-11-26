@@ -17,11 +17,11 @@ italia;Itália;orienteMedio moscou alemanha franca egito;560;326
 reinoUnido;Reino Único;franca alemanha escandinavia islandia;477;285
 mexico;México;venezuela novaIorque california;236;407
 otawa;Otawa;novaIorque vancouver labrador mackenzie;249;294
-mackenzie;Mackenzie;vancouver groelandia alaska labrador;172;243
+mackenzie;Mackenzie;vancouver groelandia alaska labrador otawa;172;243
 novaIorque;Nova Iorque;mexico california otawa labrador;251;347
 vancouver;Vancouver;otawa california mackenzie alaska;175;291
 groelandia;Groelandia;islandia labrador mackenzie;396;185
-california;Califórnia;vancouver mackenzie otawa california novaIorque mexico;182;332
+california;Califórnia;vancouver mackenzie otawa novaIorque mexico;182;332
 alaska;Alaska;mackenzie;69;240
 labrador;Labrador;otawa novaIorque groelandia mackenzie;309;286
 argelia;Argélia;sudao egito marrocos congo brasil;516;421
