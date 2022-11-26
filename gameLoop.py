@@ -16,6 +16,8 @@ PAISES_MAX_POR_CONTINENTE = 8
 
 class GameLoop:
     def __init__(self,main) -> None:
+        self.inicioTurno = 0
+        self.contaTropas = 0
         self.start_time = time.time()
         self.janela = main.janela
         self.janela.set_title("War Game")
@@ -41,9 +43,12 @@ class GameLoop:
         self.declarandoAtk = [False, None, None, -1] # coloca o joga em modo de declaração de atacante
         self.declarandoReforco = [False, None, None, -1] # coloca o joga em modo de declaração de reforco
         self.inicializa()
+        self.paisReforco = None
+        self.rodada = 0
 
     def inicializa(self):
         # Refatorar todos os métodos de recarregamento para uma thread paralela enquanto carrrega o loading 
+        self.rodada = 0
         self.passarVezBtn.set_position(900, 680)
         self.primeiraRodada = 1 # coloca o jogo em modo de primeiro turno
         self.boot = Boot(self.janela)
@@ -64,7 +69,9 @@ class GameLoop:
         self.jogadorAtual = self.jogadores[0]
         self.paisSelecionado = None
         self.paisAlvo = None
-
+        self.inicioTurno = 0
+        self.contaTropas = 0
+        self.paisReforco = None
         self.inicializaDicionarioPaises()
         print(f'Loading terminou em {time.time() - self.start_time} segundos')
 
@@ -301,6 +308,47 @@ class GameLoop:
             paisReforco.enviouReforco = True
             
         return 0
+    def passaTurno(self):
+        self.janela.draw_text("numero de tropas para distribuir "+str(self.jogadorAtual.aDistribuir), 100, 110, 20, (255,255,255))
+        #print("fim da rodada")
+        if self.contaTropas == 0:
+            print("entrou 1")
+            self.jogadorAtual.aDistribuir = int(len(self.paisesDoJogador(self.jogadorAtual))/2)
+            print(self.jogadorAtual.aDistribuir)
+            self.contaTropas = 1
+
+        if self.cursor.is_button_pressed(button=1) :
+            print("entrou 2")
+            if self.jogadorAtual.aDistribuir < 1:
+                print("entrou 3")
+                self.contaTropas = 0
+                self.inicioTurno = 0
+
+            
+            for pais in self.paises:
+                if self.mousePixel.collided_perfect(pais.gameImage):
+                    print("entrou 4")
+                    #if self.paisReforco == None:
+                        #print("entrou 5")
+                    self.paisReforco = pais
+
+                    if self.paisReforco.pertenceA(self.jogadorAtual):
+                        print("entrou 6")
+                        print(f'jogador {self.jogadorAtual.idJogador} selecionou {pais.nome}')
+                        
+
+                        if self.jogadorAtual.aDistribuir >= 1 and self.mousePixel.collided_perfect(pais.gameImage):
+                            print("entrou 7")
+                            self.paisReforco.tropas += 1
+                            self.jogadorAtual.aDistribuir -= 1
+                            print(self.jogadorAtual.aDistribuir)
+                            self.paisReforco = None
+                            pass
+                    
+                    else:
+                        print("entrou 8")
+                        self.paisReforco= None
+                        print(f'o jogador selecionou {pais.nome} que não pertence a ele')
 
     def run(self):
         # print("Inimigos:")
@@ -317,8 +365,8 @@ class GameLoop:
         self.mousePixel.draw()
 
 
-            
-        if not self.declarandoAtk[0]: # nao selecionar se esta declarando
+        
+        if not self.declarandoAtk[0] and self.inicioTurno ==0: # nao selecionar se esta declarando se for inicio do turno  
             self.selecionarPais()
 
         self.desenhaInterface()
@@ -331,15 +379,26 @@ class GameLoop:
                     self.jogadorAtual = self.jogadores[0]
                 else:
                     self.jogadorAtual = self.jogadores[self.jogadorAtual.idJogador+1]
-        elif self.mousePixel.collided_perfect(self.passarVezBtn) and self.cursor.is_button_pressed(button=1):
+        elif self.mousePixel.collided_perfect(self.passarVezBtn) and self.cursor.is_button_pressed(button=1) and self.inicioTurno ==0:
+            
             for pais in self.paisesDoJogador(self.jogadorAtual):
                 pais.enviouReforco = False
             if self.jogadorAtual.idJogador+1 == self.numJogadores:
+                self.rodada = True
+                if self.rodada:
+                    self.inicioTurno = 1
+          
+                
                 self.jogadorAtual = self.jogadores[0]
             else:
                 self.jogadorAtual = self.jogadores[self.jogadorAtual.idJogador+1]
+                if self.rodada:
+                    self.inicioTurno = 1
             self.declarandoAtk=[False, None, None, -1]
-
+        
+        
+        elif self.inicioTurno == 1:
+            self.passaTurno()
         #print(self.declarandoAtk)
         if self.declarandoAtk[0]:
             self.rotinaAtk(self.declarandoAtk[1], self.declarandoAtk[2])
