@@ -14,6 +14,7 @@ from pais import Pais
 from jogador import Jogador
 PAISES_MAX_POR_CONTINENTE = 8
 TIMEOUT_DISTRIBUICAO = 0.5
+TIMEOUT_ATAQUE = 0.5
 
 class GameLoop:
     def __init__(self, main) -> None:
@@ -49,6 +50,8 @@ class GameLoop:
         self.paisReforco = None
         self.rodada = 0
         self.timeOutIa = 0
+        self.fimAtauqueIA = False
+        self.declarandoAtaqueIA = False
 
     def inicializa(self):
         # Refatorar todos os métodos de recarregamento para uma thread paralela enquanto carrrega o loading
@@ -77,7 +80,7 @@ class GameLoop:
         self.inicializaDicionarioPaises()
         self.inicializaDicionarioContinentes()
         print(f'Loading terminou em {time.time() - self.start_time} segundos')
-        print(f"Distribuição inicial do jogador {self.jogadorAtual.getCor()}")
+        print(f"->Distribuição inicial do jogador {self.jogadorAtual.getCor()}")
 
     def inicializaDicionarioPaises(self):
         for pais in self.paises:
@@ -140,8 +143,7 @@ class GameLoop:
         self.janela.draw_text(
             f"Vez do jogador {self.jogadorAtual.getCor()}", 100, 60, 20, (255, 255, 255))
         if self.primeiraRodada == 1:
-            self.janela.draw_text(
-                f"Distribuição inicial de tropas do jogador {self.jogadorAtual.getCor()}", 100, 110, 20, (255, 255, 255))
+            self.janela.draw_text(f"Distribuição inicial de tropas do jogador {self.jogadorAtual.getCor()}", 100, 110, 20, (255, 255, 255))
 
         # Desenha icones de exercito
         for pais in self.paises:
@@ -186,11 +188,9 @@ class GameLoop:
         elif self.cursor.is_button_pressed(button=1) and self.notPressed:
             self.notPressed = False
             colidiu = False
-            print('reinicia colisao')
             for pais in self.paises:
                 if self.mousePixel.collided_perfect(pais.gameImage):
                     colidiu = True
-                    print("colidiu")
                     if self.paisSelecionado == None:
                         self.paisSelecionado = pais
 
@@ -212,26 +212,22 @@ class GameLoop:
                                 self.paisSelecionado = None
                         else:
                             self.paisSelecionado = None
-                            print(
-                                f'\tO jogador {self.jogadorAtual.getCor()} selecionou {pais.nome} que não pertence a ele')
+                            print(f'\tO jogador {self.jogadorAtual.getCor()} selecionou {pais.nome} que não pertence a ele')
                     else:
                         if pais.identificador in self.paisSelecionado.vizinhos:
                             if pais.ehInimigo(self.paisSelecionado):
-                                print(
-                                    f'\t\t{self.paisSelecionado.nome} ataca {pais.nome}')
+                                print(f'\t{self.paisSelecionado.nome} ataca {pais.nome}')
                                 # inicializa declaracao de atk
                                 self.declarandoAtk = [
                                     True, self.paisSelecionado, pais, 0]
 
                             else:
-                                print(
-                                    f'\t\t{self.paisSelecionado.nome} enviou reforços para {pais.nome}')
+                                print(f'\t{self.paisSelecionado.nome} enviou reforços para {pais.nome}')
                                 # inicializa declaracao de reforco
                                 self.declarandoReforco = [
                                     True, self.paisSelecionado, pais, 0]
                         else:
-                            print(
-                                f'\t\t{self.paisSelecionado.nome} não possui fronteira com {pais.nome}')
+                            print(f'\t\t{self.paisSelecionado.nome} não possui fronteira com {pais.nome}')
 
                         self.paisSelecionado = None
             if not colidiu and not self.declarandoAtk[0] and not self.declarandoReforco[0]:
@@ -255,7 +251,7 @@ class GameLoop:
             # reposiciona icone escolha, inicializa btn
             if self.declarandoAtk[3] == 0:
                 self.jogadores[self.declarandoAtk[1].idJogador].jogadorArmyIcon65.set_position(400, 500)
-                self.jogadores[self.declarandoAtk[1].idJogador].atacarNum = 2
+                self.jogadores[self.declarandoAtk[1].idJogador].atacarNum = 1
                 self.iconsPool.append(GameImage("war_ref/png/empty-button_67_46.png"))
                 self.iconsPool[-1].set_position(400, 600)
                 self.declarandoAtk[3] = 1
@@ -286,8 +282,6 @@ class GameLoop:
                     defForce = [random.randrange(1, 6) for i in range(1)]
                 atkForce = sorted(atkForce, reverse=True)
                 defForce = sorted(defForce, reverse=True)
-                # print(atkForce)
-                # print(defForce)
                 atacantesInvasores = 0
                 for i in range(len(atkForce)):
                     if 0 <= i < len(defForce):
@@ -300,20 +294,23 @@ class GameLoop:
                         paisAtacado.tropas -= 1
                         atacantesInvasores += 1
                 if paisAtacado.tropas <= 0:  # vitoria do ataque
+                    print(f"\t\tO exército {self.jogadorAtual.getCor()} tomou {paisAtacado.nome}")
                     paisAtacado.idJogador = paisAtacante.idJogador
                     ganhou = []
                     for jogador in self.jogadores:
-                        print(jogador)
                         ganhou.append(self.verificaVitoriaJogador(jogador))
-                    print(ganhou)
                     if paisAtacante.tropas <= atacantesInvasores:
                         paisAtacado.tropas = 1
                         paisAtacante.tropas -= 1
                     else:
                         paisAtacado.tropas = atacantesInvasores
                         paisAtacante.tropas -= atacantesInvasores
+                else:
+                    print(f"\t\tO exército {self.jogadores[paisAtacado.idJogador].getCor()} defendeu {paisAtacado.nome}")
                 # Tira do mode de declaracao de atk
                 self.declarandoAtk = [False, None, None, -1]
+                if self.declarandoAtaqueIA:
+                    self.declarandoAtaqueIA == False
         else:
             # Tira do mode de declaracao de atk
             self.declarandoAtk = [False, None, None, -1]
@@ -364,14 +361,16 @@ class GameLoop:
         if self.contaTropas == 0:
             self.jogadorAtual.aDistribuir = int(
                 len(self.paisesDoJogador(self.jogadorAtual))/2)
-            print(
-                f"\tO jogador {self.jogadorAtual.getCor()} deve distribuir {self.jogadorAtual.aDistribuir} tropas")
+            print( f"->O jogador {self.jogadorAtual.getCor()} deve distribuir {self.jogadorAtual.aDistribuir} tropas")
             self.contaTropas = 1
         if self.jogadorAtual.aDistribuir < 1:
             self.contaTropas = 0
             self.inicioTurno = 0
-            print(
-                f"Fase de movimentação de tropas do jogador {self.jogadorAtual.getCor()}")
+            if self.jogadorAtual.humano:
+                print(f"->Fase de movimentação de tropas do jogador {self.jogadorAtual.getCor()}")
+            else:
+                print(f"->Fase de movimentação de tropas do jogador {self.jogadorAtual.getCor()}(IA)")
+
         if not self.jogadorAtual.humano:
             if time.time() - self.timeOutIa > TIMEOUT_DISTRIBUICAO:
                 self.distribuicaoDeTropasIA()
@@ -408,18 +407,18 @@ class GameLoop:
                     # jogador da cor alvo foi exterminado
                     if self.paisesDoJogador(jogador) == []:
                         objetivoAlcancado = True
-                        print(f"O jogador {jogadorAtual.getCor()} eliminou o exército {objetivo.getCor()}")
+                        print(f"\t**O jogador {jogadorAtual.getCor()} eliminou o exército {objetivo.getCor()}")
                     else:
-                        print(f"O jogador {jogadorAtual.getCor()} não eliminou o exército {objetivo.getCor()}")
+                        print(f"\t**O jogador {jogadorAtual.getCor()} não eliminou o exército {objetivo.getCor()}")
                         return False
         else:
             if objetivo.territoriosAdicionais != 0:
                 # jogador conquistou tds os territorios adicionais
                 if len(self.paisesDoJogador(jogadorAtual)) >= objetivo.territoriosAdicionais:
                     objetivoAlcancado = True
-                    print(f"O jogador {jogadorAtual.getCor()} já conquistou {objetivo.territoriosAdicionais} territórios")
+                    print(f"\t**O jogador {jogadorAtual.getCor()} já conquistou {objetivo.territoriosAdicionais} territórios")
                 else:
-                    print(f"O jogador {jogadorAtual.getCor()} ainda não conquistou {objetivo.territoriosAdicionais} territórios")
+                    print(f"\t**O jogador {jogadorAtual.getCor()} ainda não conquistou {objetivo.territoriosAdicionais} territórios")
                     return False
             if objetivo.continentes[0] != '':
                 for idContinente in objetivo.continentes:
@@ -427,20 +426,21 @@ class GameLoop:
                         paisesAlvo.append(pais)
                 for pais in paisesAlvo:
                     if not pais.pertenceA(jogadorAtual):
-                        print(f"O pais {pais.nome} não foi conquitado pelo jogador {jogadorAtual.getCor()}")
+                        print(f"\t**O pais {pais.nome} não foi conquitado pelo jogador {jogadorAtual.getCor()}")
                         return False
                 objetivoAlcancado = True
-                print(f"O jogador {jogadorAtual.getCor()} conquistou todos os continentes alvo")
+                print(f"\t**O jogador {jogadorAtual.getCor()} conquistou todos os continentes alvo")
             if objetivo.continentesAdicionais == 1:
                 for continente in self.continentes:
                     if continente.id not in objetivo.continentes:
                         for pais in continente.paises:
                             if not pais.pertenceA(jogadorAtual):
                                 objetivoAlcancado = False
-                                print(f"Continente adicional não conquistado({continente.nome})")
+                                print(f"\t**Continente adicional não conquistado({continente.nome})")
                                 break
-                        print(f"Continente adicional conquistado({continente.nome})")
-                        return True
+                            elif pais.identificador == continente.paises[-1].identificador:
+                                print(f"\t**Continente adicional conquistado({continente.nome})")
+                                return True
         return objetivoAlcancado
 
     def run(self):
@@ -464,9 +464,9 @@ class GameLoop:
                     print(f"Turno do jogador {self.jogadorAtual.getCor()}")
                 else:
                     self.jogadorAtual = self.jogadores[self.jogadorAtual.idJogador+1]
-                    print(
-                        f"Distribuição inicial do jogador {self.jogadorAtual.getCor()}")
-        elif self.mousePixel.collided_perfect(self.passarVezBtn) and self.cursor.is_button_pressed(button=1) and self.inicioTurno == 0:
+                    print(f"->Distribuição inicial do jogador {self.jogadorAtual.getCor()}")
+        elif (self.mousePixel.collided_perfect(self.passarVezBtn) and self.cursor.is_button_pressed(button=1) and self.inicioTurno == 0) or self.fimAtauqueIA:
+            print(f"Turno do jogador {self.jogadorAtual.getCor()}")
             for pais in self.paisesDoJogador(self.jogadorAtual):
                 pais.enviouReforco = False
             if self.jogadorAtual.idJogador+1 == self.numJogadores:
@@ -479,11 +479,15 @@ class GameLoop:
                 if self.rodada:
                     self.inicioTurno = 1
             self.declarandoAtk = [False, None, None, -1]
+            if self.fimAtauqueIA:
+                self.fimAtauqueIA = False
         elif self.inicioTurno == 1:
             self.passaTurno()
+
+        if self.inicioTurno == 0 and self.primeiraRodada == 0 and not self.jogadorAtual.humano and  time.time() - self.timeOutIa > TIMEOUT_ATAQUE:
+            self.declaracaoDeAtaqueIA()
         if self.declarandoAtk[0]:
             self.rotinaAtk(self.declarandoAtk[1], self.declarandoAtk[2])
-
         if self.declarandoReforco[1]:
             self.rotinaReforco(
                 self.declarandoReforco[1], self.declarandoReforco[2])
@@ -513,11 +517,34 @@ class GameLoop:
             self.timeOutIa = time.time()
         self.paisReforco = None
     
-    def faseDeAtaqueIA(self):
+    def declaracaoDeAtaqueIA(self):
         paisesQuePodemAtacar = self.paisesDoJogadorQuePodemAtacar(self.jogadorAtual)
-        if paisesQuePodemAtacar == []:
-            # fim do ataque
-            pass
-        random.shuffle(paisesQuePodemAtacar)
-        paisAtacante = paisesQuePodemAtacar[0]
+        paisAtacante = None
+        paisAtacado = None
+        while paisAtacante == None or paisAtacado == None:
+            if paisesQuePodemAtacar == []:
+                print("não há ataques possíveis")
+                self.fimAtauqueIA = True
+                return
+            random.shuffle(paisesQuePodemAtacar)
+            paisAtacante = paisesQuePodemAtacar.pop()
+            idVizinhos = paisAtacante.vizinhos
+            random.shuffle(idVizinhos)
+            for idVizinho in idVizinhos:
+                if not self.paisesDicionario[idVizinho].pertenceA(self.jogadorAtual):
+                    paisAtacado = self.paisesDicionario[idVizinho]
+                    break
+        self.declarandoAtaqueIA = True
+        self.timeOutIa = time.time()
+
+        if paisAtacante.tropas > 3:
+            self.jogadorAtual.atacarNum = 3
+        elif paisAtacante.tropas > 2:
+            self.jogadorAtual.atacarNum = 2
+        else:
+            self.jogadorAtual.atacarNum = 1
+
+        print(f'\t(IA){paisAtacante.nome} ataca {paisAtacado.nome}')
+        self.declarandoAtk = [True, paisAtacante, paisAtacado, 2]
+
 
