@@ -68,15 +68,3 @@ class Boot:
                            territoriosAdicionais, tropasMinimas, cor, objTmp)
             objetivos.append(obj)
         return objetivos
-    # def obterFronteiras(self, pais):
-    # 	novaFronteira = []
-    # 	for idTerritorio in pais.vizinhos.split(" "):
-    # 		vizinho = self.obterPais(idTerritorio)
-    # 		novaFronteira.append(vizinho)
-    # 	return novaFronteira
-
-    # def obterPais(self, identificador):
-    # 	for pais in self.territorios:
-    # 		if pais.identificador == identificador:
-    # 			return pais
-    # 	return None
