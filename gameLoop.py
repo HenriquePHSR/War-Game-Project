@@ -303,8 +303,8 @@ class GameLoop:
                     paisAtacado.idJogador = paisAtacante.idJogador
                     ganhou = []
                     for jogador in self.jogadores:
-                        ganhou.append(self.verificaVitoriaJogador(jogador))
                         print(jogador)
+                        ganhou.append(self.verificaVitoriaJogador(jogador))
                     print(ganhou)
                     if paisAtacante.tropas <= atacantesInvasores:
                         paisAtacado.tropas = 1
@@ -399,7 +399,7 @@ class GameLoop:
         objetivo = jogadorAtual.objetivo
         objetivoAlcancado = False
         continentesAlvo = []
-        idPaisesAlvo = []
+        paisesAlvo = []
         continentesAdicionais = []
         paisesContinenteAdicional = []
         if objetivo.corAlvo != None:
@@ -408,36 +408,39 @@ class GameLoop:
                     # jogador da cor alvo foi exterminado
                     if self.paisesDoJogador(jogador) == []:
                         objetivoAlcancado = True
-                        print(f"jogador {jogadorAtual.getCor()} ganhou")
+                        print(f"O jogador {jogadorAtual.getCor()} eliminou o exército {objetivo.getCor()}")
                     else:
+                        print(f"O jogador {jogadorAtual.getCor()} não eliminou o exército {objetivo.getCor()}")
                         return False
         else:
             if objetivo.territoriosAdicionais != 0:
                 # jogador conquistou tds os territorios adicionais
                 if len(self.paisesDoJogador(jogadorAtual)) >= objetivo.territoriosAdicionais:
                     objetivoAlcancado = True
+                    print(f"O jogador {jogadorAtual.getCor()} já conquistou {objetivo.territoriosAdicionais} territórios")
                 else:
+                    print(f"O jogador {jogadorAtual.getCor()} ainda não conquistou {objetivo.territoriosAdicionais} territórios")
                     return False
-            if objetivo.continentes[0] != 'nenhum':
+            if objetivo.continentes[0] != '':
                 for idContinente in objetivo.continentes:
-                    for idPais in self.continentesDicionario[idContinente].paises:
-                        idPaisesAlvo.append(idPais)
-                for idPais in idPaisesAlvo:
-                    if self.paisesDicionario[idPais].pertenceA(jogadorAtual):
-                        objetivoAlcancado = True
-                    else:
+                    for pais in self.continentesDicionario[idContinente].paises:
+                        paisesAlvo.append(pais)
+                for pais in paisesAlvo:
+                    if not pais.pertenceA(jogadorAtual):
+                        print(f"O pais {pais.nome} não foi conquitado pelo jogador {jogadorAtual.getCor()}")
                         return False
+                objetivoAlcancado = True
+                print(f"O jogador {jogadorAtual.getCor()} conquistou todos os continentes alvo")
             if objetivo.continentesAdicionais == 1:
                 for continente in self.continentes:
-                    if continente not in objetivo.continentes:
-                        for idPais in continente.paises:
-                            if self.paisesDicionario[idPais].pertenceA(jogadorAtual):
-                                objetivoAlcancado = True
-                            else:
+                    if continente.id not in objetivo.continentes:
+                        for pais in continente.paises:
+                            if not pais.pertenceA(jogadorAtual):
                                 objetivoAlcancado = False
+                                print(f"Continente adicional não conquistado({continente.nome})")
                                 break
-                        if objetivoAlcancado == True:
-                            break
+                        print(f"Continente adicional conquistado({continente.nome})")
+                        return True
         return objetivoAlcancado
 
     def run(self):
