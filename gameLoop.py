@@ -385,7 +385,7 @@ class GameLoop:
                         return False
         else:
             if objetivo.territoriosAdicionais != 0:
-                if len(self.paisesDoJogador(jogador)) >= objetivo.territoriosAdicionais: # jogador conquistou tds os territorios adicionais
+                if len(self.paisesDoJogador(jogadorAtual)) >= objetivo.territoriosAdicionais: # jogador conquistou tds os territorios adicionais
                     objetivoAlcancado = True
                 else:
                     return False
