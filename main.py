@@ -16,6 +16,11 @@ from jogador import Jogador
 
 import menu
 PAISES_MAX_POR_CONTINENTE = 8
+COR_TEXTO = {'vermelho': (255, 0, 0),
+             'verde': (0, 255, 100),
+             'azul': (0, 100, 255)}
+
+
 # alteração
 os.environ["DISPLAY"]
 
@@ -49,21 +54,25 @@ class main:
         self.fps_per_sec = 0
         self.menu = menu.menu(self)
         self.gameLoop = GameLoop(self)
+        self.ganhou = False
         
 
 principal = main()
 # GameLoop
 while(True):
-    principal.gameLoop.fundo.draw()
+    if principal.gameLoop.vencedor == None:
+        principal.gameLoop.fundo.draw()
+
     if principal.game_state == 0:
         principal.menu.start_window()
 
-
     #condicao de jogo
     if principal.game_state == 1:
-        principal.gameLoop.run()
+        if principal.gameLoop.vencedor == None:
+            principal.gameLoop.run()
+        else:
+            cor = principal.gameLoop.vencedor.getCor()
+            principal.janela.set_background_color([0,0,0])
+            principal.janela.draw_text(f"O exército {cor} ganhou", 25, 350, 50, COR_TEXTO[cor])
 
     principal.janela.update()
-
-        # Fps_count
-        #principal.fps_per_sec = int(1 / principal.janela.delta_time())

@@ -52,6 +52,7 @@ class GameLoop:
         self.timeOutIa = 0
         self.fimAtauqueIA = False
         self.declarandoAtaqueIA = False
+        self.vencedor = None
 
     def inicializa(self):
         # Refatorar todos os métodos de recarregamento para uma thread paralela enquanto carrrega o loading
@@ -140,8 +141,7 @@ class GameLoop:
         return paisesAliados
 
     def desenhaInterface(self):  # refatorar para classe
-        self.janela.draw_text(
-            f"Vez do jogador {self.jogadorAtual.getCor()}", 100, 60, 20, (255, 255, 255))
+        self.janela.draw_text(f"Vez do jogador {self.jogadorAtual.getCor()}", 100, 60, 20, (255, 255, 255))
         if self.primeiraRodada == 1:
             self.janela.draw_text(f"Distribuição inicial de tropas do jogador {self.jogadorAtual.getCor()}", 100, 110, 20, (255, 255, 255))
 
@@ -232,7 +232,6 @@ class GameLoop:
                         self.paisSelecionado = None
             if not colidiu and not self.declarandoAtk[0] and not self.declarandoReforco[0]:
                 self.paisSelecionado = None
-                print("pais desselecionado")
         elif self.cursor.is_button_pressed(button=1):
             pass
         else:
@@ -296,9 +295,9 @@ class GameLoop:
                 if paisAtacado.tropas <= 0:  # vitoria do ataque
                     print(f"\t\tO exército {self.jogadorAtual.getCor()} tomou {paisAtacado.nome}")
                     paisAtacado.idJogador = paisAtacante.idJogador
-                    ganhou = []
                     for jogador in self.jogadores:
-                        ganhou.append(self.verificaVitoriaJogador(jogador))
+                        if self.verificaVitoriaJogador(jogador):
+                            self.vencedor = jogador
                     if paisAtacante.tropas <= atacantesInvasores:
                         paisAtacado.tropas = 1
                         paisAtacante.tropas -= 1
