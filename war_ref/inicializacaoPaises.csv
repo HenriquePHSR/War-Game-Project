@@ -1,45 +1,45 @@
-﻿identificador;nome;fronteiras
-brasil;Brasil;argentina peru venezuela argelia
-argentina;Argentina;brasil peru venezuela
-venezuela;Venezuela;brasil peru argentina mexico
-peru;Peru;brasil argentina venezuela
-sumatra;Sumatra;vietna australiaOcidental
-novaGuine;Nova Guiné;australiaOcidental sumatra australiaOriental
-australiaOriental;Austrália Oriental;australiaOcidental sumatra novaGuine novaZelandia
-australiaOcidental;Austrália Ocidental;sumatra novaGuine australiaOriental
-novaZelandia;Nova Zelândia;australiaOriental
-moscou;Moscou;omsk aral orienteMedio escandinavia alemanha italia
-franca;França;alemanha italia reinoUnido marrocos
-alemanha;Alemanha;escandinavia franca italia reinoUnido moscou
-escandinavia;Escandinávia;moscou alemanha reinoUnido
-islandia;Islândia;reinoUnido groelandia
-italia;Itália;orienteMedio moscou alemanha franca egito
-reinoUnido;Reino Único;franca alemanha escandinavia islandia
-mexico;México;venezuela novaIorque california
-otawa;Otawa;novaIorque vancouver labrador mackenzie
-mackenzie;Mackenzie;vancouver groelandia alaska labrador
-novaIorque;Nova Iorque;mexico california otawa labrador
-vancouver;Vancouver;otawa california mackenzie alaska
-groelandia;Groelandia;islandia labrador mackenzie
-california;Califórnia;vancouver mackenzie otawa california novaIorque mexico
-alaska;Alaska;mackenzie
-labrador;Labrador;otawa novaIorque groelandia mackenzie
-argelia;Argélia;sudao egito marrocos congo brasil
-marrocos;Marrocos;argelia egito franca
-sudao;Sudão;orienteMedio egito argelia congo africaDoSul
-africaDoSul;África do Sul;madagascar congo sudao
-congo;Congo;sudao argelia africaDoSul
-egito;Egito;orienteMedio sudao argelia marrocos italia
-madagascar;Madagascar;africaDoSul
-orienteMedio;Oriente Médio;egito sudao italia moscou aral india
-mongolia;Mongólia;tchita china dudinca omsk
-india;Índia;orienteMedio aral china vietna
-siberia;Sibéria;vladvostok tchita dudinca
-china;China;mongolia tchita vladvostok japao aral india vietna omsk
-aral;Aral;orienteMedio india china omsk moscou
-omsk;Omsk;moscou dudinca aral mongolia china
-dudinca;Dundica;omsk siberia tchita mongolia
-japao;Japão;vladvostok china
-tchita;Tchita;vladvostok china mongolia dudinca siberia
-vladvostok;Vladvostok;siberia tchita china japao
-vietna;Vietnã;china india sumatra
+﻿identificador;nome;fronteiras;pivoX;pivoY
+brasil;Brasil;argentina peru venezuela argelia;365;488
+argentina;Argentina;brasil peru venezuela;333;562
+venezuela;Venezuela;brasil peru argentina mexico;311;433
+peru;Peru;brasil argentina venezuela;316;501
+sumatra;Sumatra;vietna australiaOcidental;236;406
+novaGuine;Nova Guiné;australiaOcidental sumatra australiaOriental;802;473
+australiaOriental;Austrália Oriental;australiaOcidental sumatra novaGuine novaZelandia;935;533
+australiaOcidental;Austrália Ocidental;sumatra novaGuine australiaOriental;843;530
+novaZelandia;Nova Zelândia;australiaOriental;1014;585
+moscou;Moscou;omsk aral orienteMedio escandinavia alemanha italia;617;277
+franca;França;alemanha italia reinoUnido marrocos;493;327
+alemanha;Alemanha;escandinavia franca italia reinoUnido moscou;548;294
+escandinavia;Escandinávia;moscou alemanha reinoUnido;564;234
+islandia;Islândia;reinoUnido groelandia;457;249
+italia;Itália;orienteMedio moscou alemanha franca egito;560;326
+reinoUnido;Reino Único;franca alemanha escandinavia islandia;477;285
+mexico;México;venezuela novaIorque california;236;407
+otawa;Otawa;novaIorque vancouver labrador mackenzie;249;294
+mackenzie;Mackenzie;vancouver groelandia alaska labrador otawa;172;243
+novaIorque;Nova Iorque;mexico california otawa labrador;251;347
+vancouver;Vancouver;otawa california mackenzie alaska;175;291
+groelandia;Groelandia;islandia labrador mackenzie;396;185
+california;Califórnia;vancouver mackenzie otawa novaIorque mexico;182;332
+alaska;Alaska;mackenzie;69;240
+labrador;Labrador;otawa novaIorque groelandia mackenzie;309;286
+argelia;Argélia;sudao egito marrocos congo brasil;516;421
+marrocos;Marrocos;argelia egito franca;509;371
+sudao;Sudão;orienteMedio egito argelia congo africaDoSul;591;421
+africaDoSul;África do Sul;madagascar congo sudao;577;526
+congo;Congo;sudao argelia africaDoSul;572;479
+egito;Egito;orienteMedio sudao argelia marrocos italia;574;377
+madagascar;Madagascar;africaDoSul;643;509
+orienteMedio;Oriente Médio;egito sudao italia moscou aral india;639;373
+mongolia;Mongólia;tchita china dudinca omsk;803;313
+india;Índia;orienteMedio aral china vietna;733;384
+siberia;Sibéria;vladvostok tchita dudinca;848;218
+china;China;mongolia tchita vladvostok japao aral india vietna omsk;805;356
+aral;Aral;orienteMedio india china omsk moscou;704;318
+omsk;Omsk;moscou dudinca aral mongolia china;694;252
+dudinca;Dundica;omsk siberia tchita mongolia;771;221
+japao;Japão;vladvostok china;909;348
+tchita;Tchita;vladvostok china mongolia dudinca siberia;828;284
+vladvostok;Vladvostok;siberia tchita china japao;947;236
+vietna;Vietnã;china india sumatra;802;410
