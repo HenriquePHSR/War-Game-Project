@@ -93,8 +93,20 @@ class GameLoop:
 
     def inicializaJogadores(self):
         for id in range(self.numJogadores):
-            rand_idx = random.randrange(len(self.objetivos))
-            obj = self.objetivos.pop(rand_idx)
+            objAssined = False
+            while not objAssined:
+                rand_idx = random.randrange(len(self.objetivos))
+                obj = self.objetivos.pop(rand_idx)
+                print(obj.corAlvo)
+                if obj.corAlvo == None:
+                    objAssined = True
+                    print("[!] objective assing sucessufully")
+                elif self.army_colors[id] not in obj.corAlvo:
+                    objAssined = True
+                    print("[!] objective assing sucessufully")
+                else:
+                    print("[!] objective not assing - repeating")
+
             tmpJogador = Jogador(id, obj, False, self.army_colors[id], GameImage(
                 './war_ref/png/army_40_40/small_army_'+self.army_colors[id]+'_40_40_toogle.png'), GameImage('./war_ref/png/army_65_65/small_army_'+self.army_colors[id]+'_65_65.png'))
             tmpJogador.aDistribuir = int(
