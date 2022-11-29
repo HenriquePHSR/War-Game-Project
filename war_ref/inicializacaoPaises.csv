@@ -3,8 +3,8 @@ brasil;Brasil;argentina peru venezuela argelia;365;488
 argentina;Argentina;brasil peru venezuela;333;562
 venezuela;Venezuela;brasil peru argentina mexico;311;433
 peru;Peru;brasil argentina venezuela;316;501
-sumatra;Sumatra;vietna australiaOcidental;236;406
-novaGuine;Nova Guiné;australiaOcidental sumatra australiaOriental;802;473
+sumatra;Sumatra;vietna australiaOcidental;800;470
+novaGuine;Nova Guiné;australiaOcidental sumatra australiaOriental;925;470
 australiaOriental;Austrália Oriental;australiaOcidental sumatra novaGuine novaZelandia;935;533
 australiaOcidental;Austrália Ocidental;sumatra novaGuine australiaOriental;843;530
 novaZelandia;Nova Zelândia;australiaOriental;1014;585
