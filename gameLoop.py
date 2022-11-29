@@ -442,7 +442,7 @@ class GameLoop:
                                 return True
         return objetivoAlcancado
 
-    def run(self):
+    '''def run(self):
         posicaoMouse = self.cursor.get_position()
         self.mousePixel.set_position(x=posicaoMouse[0], y=posicaoMouse[1])
         self.mousePixel.draw()
@@ -544,6 +544,6 @@ class GameLoop:
             self.jogadorAtual.atacarNum = 1
 
         print(f'\t(IA){paisAtacante.nome} ataca {paisAtacado.nome}')
-        self.declarandoAtk = [True, paisAtacante, paisAtacado, 2]
+        self.declarandoAtk = [True, paisAtacante, paisAtacado, 2]'''
 
 
