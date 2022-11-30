@@ -404,20 +404,21 @@ class GameLoop:
             for jogador in self.jogadores:
                 if jogador.cor == objetivo.corAlvo:
                     # jogador da cor alvo foi exterminado
-                    if self.paisesDoJogador(jogador) == []:
+                    if GameLoop.paisesDoJogador(self,jogador) == []:
                         objetivoAlcancado = True
-                        print(f"\t**O jogador {jogadorAtual.getCor()} eliminou o exército {objetivo.getCor()}")
+                        # print(f"\t**O jogador {jogadorAtual.getCor()} eliminou o exército {objetivo.getCor()}")
                     else:
-                        print(f"\t**O jogador {jogadorAtual.getCor()} não eliminou o exército {objetivo.getCor()}")
+                        # print(f"\t**O jogador {jogadorAtual.getCor()} não eliminou o exército {objetivo.getCor()}")
                         return False
         else:
             if objetivo.territoriosAdicionais != 0:
                 # jogador conquistou tds os territorios adicionais
-                if len(self.paisesDoJogador(jogadorAtual)) >= objetivo.territoriosAdicionais:
+                print(self.paises)
+                if len(GameLoop.paisesDoJogador(self,jogadorAtual)) >= objetivo.territoriosAdicionais:
                     objetivoAlcancado = True
-                    print(f"\t**O jogador {jogadorAtual.getCor()} já conquistou {objetivo.territoriosAdicionais} territórios")
+                    # print(f"\t**O jogador {jogadorAtual.getCor()} já conquistou {objetivo.territoriosAdicionais} territórios")
                 else:
-                    print(f"\t**O jogador {jogadorAtual.getCor()} ainda não conquistou {objetivo.territoriosAdicionais} territórios")
+                    # print(f"\t**O jogador {jogadorAtual.getCor()} ainda não conquistou {objetivo.territoriosAdicionais} territórios")
                     return False
             if objetivo.continentes[0] != '':
                 for idContinente in objetivo.continentes:
@@ -425,24 +426,24 @@ class GameLoop:
                         paisesAlvo.append(pais)
                 for pais in paisesAlvo:
                     if not pais.pertenceA(jogadorAtual):
-                        print(f"\t**O pais {pais.nome} não foi conquitado pelo jogador {jogadorAtual.getCor()}")
+                        # print(f"\t**O pais {pais.nome} não foi conquitado pelo jogador {jogadorAtual.getCor()}")
                         return False
                 objetivoAlcancado = True
-                print(f"\t**O jogador {jogadorAtual.getCor()} conquistou todos os continentes alvo")
+                # print(f"\t**O jogador {jogadorAtual.getCor()} conquistou todos os continentes alvo")
             if objetivo.continentesAdicionais == 1:
                 for continente in self.continentes:
                     if continente.id not in objetivo.continentes:
                         for pais in continente.paises:
                             if not pais.pertenceA(jogadorAtual):
                                 objetivoAlcancado = False
-                                print(f"\t**Continente adicional não conquistado({continente.nome})")
+                                # print(f"\t**Continente adicional não conquistado({continente.nome})")
                                 break
                             elif pais.identificador == continente.paises[-1].identificador:
-                                print(f"\t**Continente adicional conquistado({continente.nome})")
+                                # print(f"\t**Continente adicional conquistado({continente.nome})")
                                 return True
         return objetivoAlcancado
 
-    '''def run(self):
+    def run(self):
         posicaoMouse = self.cursor.get_position()
         self.mousePixel.set_position(x=posicaoMouse[0], y=posicaoMouse[1])
         self.mousePixel.draw()
@@ -544,6 +545,6 @@ class GameLoop:
             self.jogadorAtual.atacarNum = 1
 
         print(f'\t(IA){paisAtacante.nome} ataca {paisAtacado.nome}')
-        self.declarandoAtk = [True, paisAtacante, paisAtacado, 2]'''
+        self.declarandoAtk = [True, paisAtacante, paisAtacado, 2]
 
 
