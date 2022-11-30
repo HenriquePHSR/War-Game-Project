@@ -3,9 +3,9 @@ brasil;Brasil;argentina peru venezuela argelia;365;488
 argentina;Argentina;brasil peru venezuela;333;562
 venezuela;Venezuela;brasil peru argentina mexico;311;433
 peru;Peru;brasil argentina venezuela;316;501
-sumatra;Sumatra;vietna australiaOcidental;800;470
+sumatra;Sumatra;vietna australiaOcidental novaGuine;800;470
 novaGuine;Nova Guiné;australiaOcidental sumatra australiaOriental;925;470
-australiaOriental;Austrália Oriental;australiaOcidental sumatra novaGuine novaZelandia;935;533
+australiaOriental;Austrália Oriental;australiaOcidental novaGuine novaZelandia;935;533
 australiaOcidental;Austrália Ocidental;sumatra novaGuine australiaOriental;843;530
 novaZelandia;Nova Zelândia;australiaOriental;1014;585
 moscou;Moscou;omsk aral orienteMedio escandinavia alemanha italia;617;277
@@ -21,7 +21,7 @@ mackenzie;Mackenzie;vancouver groelandia alaska labrador otawa;172;243
 novaIorque;Nova Iorque;mexico california otawa labrador;251;347
 vancouver;Vancouver;otawa california mackenzie alaska;175;291
 groelandia;Groelandia;islandia labrador mackenzie;396;185
-california;Califórnia;vancouver mackenzie otawa novaIorque mexico;182;332
+california;Califórnia;vancouver mackenzie novaIorque mexico;182;332
 alaska;Alaska;mackenzie;69;240
 labrador;Labrador;otawa novaIorque groelandia mackenzie;309;286
 argelia;Argélia;sudao egito marrocos congo brasil;516;421
