@@ -413,7 +413,6 @@ class GameLoop:
         else:
             if objetivo.territoriosAdicionais != 0:
                 # jogador conquistou tds os territorios adicionais
-                print(self.paises)
                 if len(GameLoop.paisesDoJogador(self,jogadorAtual)) >= objetivo.territoriosAdicionais:
                     objetivoAlcancado = True
                     # print(f"\t**O jogador {jogadorAtual.getCor()} já conquistou {objetivo.territoriosAdicionais} territórios")
