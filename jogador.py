@@ -1,4 +1,3 @@
-from numpy import NAN
 from pais import Pais
 
 COR = {'blue': 'azul',
@@ -12,7 +11,7 @@ class Jogador:
 	objetivo = None
 	territorios = []
 	selecionado = Pais('','','',None,9999,9999)
-	cor = ''
+	cor = 'blue'
 	jogadorArmyIcon = None
 	jogadorArmyIcon65 = None
 	humano = -1
@@ -35,3 +34,6 @@ class Jogador:
 	def getCor(self):
 		return COR[self.cor]
 	
+if __name__ == '__main__':
+	jogadorAzul = Jogador(0, '', True, 'blue', '', '')
+	jogadorAzul.getCor()

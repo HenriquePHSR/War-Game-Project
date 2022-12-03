@@ -416,7 +416,7 @@ class GameLoop:
             for jogador in self.jogadores:
                 if jogador.cor == objetivo.corAlvo:
                     # jogador da cor alvo foi exterminado
-                    if self.paisesDoJogador(jogador) == []:
+                    if GameLoop.paisesDoJogador(self,jogador) == []:
                         objetivoAlcancado = True
                         print(f"\t**O jogador {jogadorAtual.getCor()} eliminou o exército {objetivo.getCor()}")
                     else:
@@ -425,7 +425,7 @@ class GameLoop:
         else:
             if objetivo.territoriosAdicionais != 0:
                 # jogador conquistou tds os territorios adicionais
-                if len(self.paisesDoJogador(jogadorAtual)) >= objetivo.territoriosAdicionais:
+                if len(GameLoop.paisesDoJogador(self,jogadorAtual)) >= objetivo.territoriosAdicionais:
                     objetivoAlcancado = True
                     print(f"\t**O jogador {jogadorAtual.getCor()} já conquistou {objetivo.territoriosAdicionais} territórios")
                 else:
